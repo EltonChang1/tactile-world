@@ -1,0 +1,17 @@
+{
+  "asOf": "2026-10-26",
+  "note": "Planning records, not measured results. Browser-local completion does not update these canonical records.",
+  "milestones": [
+    {"id":"G0","title":"Confirm sensor and rig access","status":"planned","dependsOn":[],"owner":null,"targetDate":null,"evidence":[],"acceptance":"Sensor model/interface/rate and rig/force instrumentation documented."},
+    {"id":"G1","title":"Repeatable physical contact rig","status":"planned","dependsOn":["G0"],"owner":null,"targetDate":null,"evidence":[],"acceptance":"Repeatable press/release with measured displacement and calibrated force where claimed."},
+    {"id":"G2","title":"Synchronized data acquisition","status":"planned","dependsOn":["G1"],"owner":null,"targetDate":null,"evidence":[],"acceptance":"Frames, forces, motion, timestamps, units, IDs and calibration provenance captured."},
+    {"id":"G3","title":"Contact model and sensor renderer","status":"planned","dependsOn":["G2"],"owner":null,"targetDate":null,"evidence":[],"acceptance":"Consistent deformation/force/image outputs for a bounded one-sensor normal-contact model."},
+    {"id":"G4","title":"Frozen calibration and evaluation","status":"planned","dependsOn":["G3"],"owner":null,"targetDate":null,"evidence":[],"acceptance":"Reserved object/session/trajectory evaluation with parameters frozen before scoring."},
+    {"id":"G5","title":"Accuracy/speed baseline and replay","status":"planned","dependsOn":["G4"],"owner":null,"targetDate":null,"evidence":[],"acceptance":"Matched baseline, physical/image errors, failures and complete timing/memory configuration."},
+    {"id":"G6","title":"Runnable Python interface","status":"planned","dependsOn":["G3","G5"],"owner":null,"targetDate":null,"evidence":[],"acceptance":"Fresh-process configuration/reset/step example and reproducible benchmark command."},
+    {"id":"G7","title":"Synthetic-trained real perception","status":"planned","dependsOn":["G4","G6"],"owner":null,"targetDate":null,"evidence":[],"acceptance":"Frozen model on held-out real measurements, independent labels and matched baselines."},
+    {"id":"G8","title":"Optional stage feedback control","status":"planned","dependsOn":["G7"],"owner":null,"targetDate":null,"evidence":[],"acceptance":"Tactile-driven one-axis controller evaluated independently across predefined physical trials."},
+    {"id":"G9","title":"Optional robot policy transfer","status":"planned","dependsOn":["G6"],"owner":null,"targetDate":null,"evidence":[],"acceptance":"Actual robot, frozen sim-trained controller, deployable observations/actions and repeated trials; separate hardware program."}
+  ]
+}
+

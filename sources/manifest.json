@@ -1,0 +1,183 @@
+{
+  "capturedOn": "2026-10-26",
+  "timezone": "America/Los_Angeles",
+  "note": "Selected documentation snapshots only. Experiments not rerun; no raw/reserved signals accessed. SHA256 covers exact local bytes. Archived relative links may require upstream repository.",
+  "files": [
+    {
+      "path": "sources/Tactile_World_Models_Complete_Report.pdf",
+      "sha256": "d377178421f656f5d3f8714bb3a5ecff944e248c8e059b51bbaa688e44f46b30",
+      "bytes": 209254,
+      "origin": "User-supplied PDF, preserved from local attachment",
+      "revision": null,
+      "upstream": null
+    },
+    {
+      "path": "sources/report-extracted.txt",
+      "sha256": "f5387addfd9b79dfa0603ea6711995dd7f5b87dfdfa1ec48ec5ab059a748aa35",
+      "bytes": 75922,
+      "origin": "Text extracted with pypdf from the preserved user PDF; physical page markers retained",
+      "revision": null,
+      "upstream": null
+    },
+    {
+      "path": "sources/prior-research/README.md",
+      "sha256": "ca560bddf6ee29f7bd9e2fdc303b37cb32bd05c94d2ca98b27498e116fc33803",
+      "bytes": 9556,
+      "origin": "tactile-contact-research/README.md",
+      "revision": "49ea671ad759a18599dfdaf9255abf9631937881",
+      "upstream": "https://github.com/EltonChang1/tactile-contact-research/blob/49ea671ad759a18599dfdaf9255abf9631937881/README.md"
+    },
+    {
+      "path": "sources/prior-research/docs/paper_dictionary.json",
+      "sha256": "23ebe4e49c24f21318096f7ab3ecc09eba8a7f841327d0004692978758dba123",
+      "bytes": 169502,
+      "origin": "tactile-contact-research/docs/paper_dictionary.json",
+      "revision": "49ea671ad759a18599dfdaf9255abf9631937881",
+      "upstream": "https://github.com/EltonChang1/tactile-contact-research/blob/49ea671ad759a18599dfdaf9255abf9631937881/docs/paper_dictionary.json"
+    },
+    {
+      "path": "sources/prior-research/docs/paper_dictionary.md",
+      "sha256": "d167fcbed96440dd32523ccbb1575f2cb478dfb234e6eca11ab2f2ae3646f4dd",
+      "bytes": 159509,
+      "origin": "tactile-contact-research/docs/paper_dictionary.md",
+      "revision": "49ea671ad759a18599dfdaf9255abf9631937881",
+      "upstream": "https://github.com/EltonChang1/tactile-contact-research/blob/49ea671ad759a18599dfdaf9255abf9631937881/docs/paper_dictionary.md"
+    },
+    {
+      "path": "sources/prior-research/docs/paper_dictionary.csv",
+      "sha256": "94c19f38063d020b02ab6fd688704c11d53d81598fe2651909f71830704852e8",
+      "bytes": 104935,
+      "origin": "tactile-contact-research/docs/paper_dictionary.csv",
+      "revision": "49ea671ad759a18599dfdaf9255abf9631937881",
+      "upstream": "https://github.com/EltonChang1/tactile-contact-research/blob/49ea671ad759a18599dfdaf9255abf9631937881/docs/paper_dictionary.csv"
+    },
+    {
+      "path": "sources/prior-research/docs/tactile_world_model_review.md",
+      "sha256": "429edb824699ea1c7ccf965aff31a1ba828f5daa388962177606d101dce44306",
+      "bytes": 20082,
+      "origin": "tactile-contact-research/docs/tactile_world_model_review.md",
+      "revision": "49ea671ad759a18599dfdaf9255abf9631937881",
+      "upstream": "https://github.com/EltonChang1/tactile-contact-research/blob/49ea671ad759a18599dfdaf9255abf9631937881/docs/tactile_world_model_review.md"
+    },
+    {
+      "path": "sources/prior-research/docs/repository_research_audit.md",
+      "sha256": "fcf3da79618501483afc3e3ca6ccd62d37df37098e3528e1febc40b48fec10aa",
+      "bytes": 16725,
+      "origin": "tactile-contact-research/docs/repository_research_audit.md",
+      "revision": "49ea671ad759a18599dfdaf9255abf9631937881",
+      "upstream": "https://github.com/EltonChang1/tactile-contact-research/blob/49ea671ad759a18599dfdaf9255abf9631937881/docs/repository_research_audit.md"
+    },
+    {
+      "path": "sources/prior-research/docs/matched_development_review.md",
+      "sha256": "bf135a67f496ea96e10e26cd6fdf44cb069e872eee7cf43057cb7c9e2a016711",
+      "bytes": 9056,
+      "origin": "tactile-contact-research/docs/matched_development_review.md",
+      "revision": "49ea671ad759a18599dfdaf9255abf9631937881",
+      "upstream": "https://github.com/EltonChang1/tactile-contact-research/blob/49ea671ad759a18599dfdaf9255abf9631937881/docs/matched_development_review.md"
+    },
+    {
+      "path": "sources/prior-research/docs/matched_validation_review.md",
+      "sha256": "a196435545e444471dd093154fc34d01c23e15ebc43850121428bb1049a48f9b",
+      "bytes": 5881,
+      "origin": "tactile-contact-research/docs/matched_validation_review.md",
+      "revision": "49ea671ad759a18599dfdaf9255abf9631937881",
+      "upstream": "https://github.com/EltonChang1/tactile-contact-research/blob/49ea671ad759a18599dfdaf9255abf9631937881/docs/matched_validation_review.md"
+    },
+    {
+      "path": "sources/prior-research/docs/clock_qc_review.md",
+      "sha256": "301993f12d74eceeedc0540f08ca3d62e91267551a34961f64669a63e8884444",
+      "bytes": 9067,
+      "origin": "tactile-contact-research/docs/clock_qc_review.md",
+      "revision": "49ea671ad759a18599dfdaf9255abf9631937881",
+      "upstream": "https://github.com/EltonChang1/tactile-contact-research/blob/49ea671ad759a18599dfdaf9255abf9631937881/docs/clock_qc_review.md"
+    },
+    {
+      "path": "sources/prior-research/docs/study_design_review.md",
+      "sha256": "ccad04b6d68341330813c105a6fa78c4ef0733008a64a6439921cae2e11c03e2",
+      "bytes": 9211,
+      "origin": "tactile-contact-research/docs/study_design_review.md",
+      "revision": "49ea671ad759a18599dfdaf9255abf9631937881",
+      "upstream": "https://github.com/EltonChang1/tactile-contact-research/blob/49ea671ad759a18599dfdaf9255abf9631937881/docs/study_design_review.md"
+    },
+    {
+      "path": "sources/prior-research/docs/research_plan.md",
+      "sha256": "24eed7e3d0f8dc52c7175c13127ff67238f4eb6538ecb18a57e821935654457e",
+      "bytes": 59404,
+      "origin": "tactile-contact-research/docs/research_plan.md",
+      "revision": "49ea671ad759a18599dfdaf9255abf9631937881",
+      "upstream": "https://github.com/EltonChang1/tactile-contact-research/blob/49ea671ad759a18599dfdaf9255abf9631937881/docs/research_plan.md"
+    },
+    {
+      "path": "sources/prior-research/docs/protocol.md",
+      "sha256": "0126fa9807d8bd8762f4a25c73af39823d0dbad92b54f27008d3c68b08e09378",
+      "bytes": 22899,
+      "origin": "tactile-contact-research/docs/protocol.md",
+      "revision": "49ea671ad759a18599dfdaf9255abf9631937881",
+      "upstream": "https://github.com/EltonChang1/tactile-contact-research/blob/49ea671ad759a18599dfdaf9255abf9631937881/docs/protocol.md"
+    },
+    {
+      "path": "sources/prior-research/docs/reproducing_experiments.md",
+      "sha256": "068993ad24826a37b8b8b03370e7e75b4d64f12f253b4aa53ba7b157f382fc50",
+      "bytes": 17004,
+      "origin": "tactile-contact-research/docs/reproducing_experiments.md",
+      "revision": "49ea671ad759a18599dfdaf9255abf9631937881",
+      "upstream": "https://github.com/EltonChang1/tactile-contact-research/blob/49ea671ad759a18599dfdaf9255abf9631937881/docs/reproducing_experiments.md"
+    },
+    {
+      "path": "sources/prior-research/docs/tactile_worlds_research_pitch_12_slides.md",
+      "sha256": "db6ed4fdd3fb8a978a5416afb21cfa629b95009179c9dcc4c3dd276ddf589154",
+      "bytes": 23936,
+      "origin": "tactile-contact-research/docs/tactile_worlds_research_pitch_12_slides.md",
+      "revision": "49ea671ad759a18599dfdaf9255abf9631937881",
+      "upstream": "https://github.com/EltonChang1/tactile-contact-research/blob/49ea671ad759a18599dfdaf9255abf9631937881/docs/tactile_worlds_research_pitch_12_slides.md"
+    },
+    {
+      "path": "sources/prior-research/docs/tactile_worlds_introduction_11_slides.md",
+      "sha256": "14724b672765add4a91419a5cc0628c6aa42e970af02208d3ba2939dafcbcf5c",
+      "bytes": 16291,
+      "origin": "tactile-contact-research/docs/tactile_worlds_introduction_11_slides.md",
+      "revision": "49ea671ad759a18599dfdaf9255abf9631937881",
+      "upstream": "https://github.com/EltonChang1/tactile-contact-research/blob/49ea671ad759a18599dfdaf9255abf9631937881/docs/tactile_worlds_introduction_11_slides.md"
+    },
+    {
+      "path": "sources/prior-mechanics/README.md",
+      "sha256": "c7d9cf9b049880140b7f992ab36b6e85bc182e92d8c5b0fec3e19e82cb9271b8",
+      "bytes": 3776,
+      "origin": "brief-touch-mechanics/README.md",
+      "revision": "e04f1cc975bb6540285096f9d3f257fefe1e0e43",
+      "upstream": "https://github.com/EltonChang1/brief-touch-mechanics/blob/e04f1cc975bb6540285096f9d3f257fefe1e0e43/README.md"
+    },
+    {
+      "path": "sources/prior-mechanics/docs/execution-report.md",
+      "sha256": "035acebde4f529997f9bce8c649bd919c8a6bf275cd9467f9b92844efa2baf10",
+      "bytes": 10595,
+      "origin": "brief-touch-mechanics/docs/execution-report.md",
+      "revision": "e04f1cc975bb6540285096f9d3f257fefe1e0e43",
+      "upstream": "https://github.com/EltonChang1/brief-touch-mechanics/blob/e04f1cc975bb6540285096f9d3f257fefe1e0e43/docs/execution-report.md"
+    },
+    {
+      "path": "sources/prior-mechanics/docs/experiment-plan.md",
+      "sha256": "fad86931c6390d576dd47000f3f53267a5f6ba439ed22f6f88a9f396efc266ed",
+      "bytes": 22860,
+      "origin": "brief-touch-mechanics/docs/experiment-plan.md",
+      "revision": "e04f1cc975bb6540285096f9d3f257fefe1e0e43",
+      "upstream": "https://github.com/EltonChang1/brief-touch-mechanics/blob/e04f1cc975bb6540285096f9d3f257fefe1e0e43/docs/experiment-plan.md"
+    },
+    {
+      "path": "sources/prior-mechanics/docs/methods.md",
+      "sha256": "44f8c1dc11074c088878513f88f2daab9792f218fc09ebc7d95ce4dce3d838c9",
+      "bytes": 24118,
+      "origin": "brief-touch-mechanics/docs/methods.md",
+      "revision": "e04f1cc975bb6540285096f9d3f257fefe1e0e43",
+      "upstream": "https://github.com/EltonChang1/brief-touch-mechanics/blob/e04f1cc975bb6540285096f9d3f257fefe1e0e43/docs/methods.md"
+    },
+    {
+      "path": "sources/prior-mechanics/docs/running-experiment.md",
+      "sha256": "ab3f49950a4413a502448bc8306f929ab730d1f3f64391600662674f99d53f6f",
+      "bytes": 8582,
+      "origin": "brief-touch-mechanics/docs/running-experiment.md",
+      "revision": "e04f1cc975bb6540285096f9d3f257fefe1e0e43",
+      "upstream": "https://github.com/EltonChang1/brief-touch-mechanics/blob/e04f1cc975bb6540285096f9d3f257fefe1e0e43/docs/running-experiment.md"
+    }
+  ]
+}

@@ -1,0 +1,975 @@
+## PDF page 1
+23 OCT 2026  |  RESEARCH SYNTHESIS 1
+RESEARCH LANDSCAPE / TECHNICAL BLUEPRINT
+Tactile World Models, Texture
+Simulation & Whole-Body
+Somatosensation
+A comprehensive synthesis of our discussion: what a robot should feel, how to
+simulate it, what researchers have built, and a feasible route toward physically
+grounded touch for Physical AI.
+Prepared 23 October 2026 | Covers discussion from 29 September to 23 October 2026
+Includes: material representations and contact physics; 2026 tactile world models; visual-tactile simulation; differentiable
+mechanics; whole-body artificial skin; datasets and tactile foundation models; research hypotheses; phased experiments;
+and an annotated reading catalog.
+CENTRAL QUESTION
+Can an embodied AI system learn a reusable physical description of surface texture and
+contact, simulate what different bodies and sensors would feel, and use those predictions
+to act reliably in the real world?
+Evidence convention: Published work and reported experimental results are distinguished from design proposals and hypotheses.
+Example material parameter values are illustrative, not calibrated measurements. Source links appear in the numbered literature
+catalog.
+
+## PDF page 2
+TACTILE WORLD MODELS  /  COMPLETE RESEARCH REPORT
+23 OCT 2026  |  RESEARCH SYNTHESIS 2
+Contents
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 4 How to use this report
+5 1. Executive synthesis
+6 2. Terminology and scope: physics engine vs. world model
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 6 Why vision alone is not enough
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 6 Why “a 3D model plus friction” is not enough
+6 3. What to represent in a touchable physical world
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 7 Material is not sensation
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 7 Illustrative tactile material asset
+8 4. How texture becomes a tactile signal
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 8 Normal and tangential contact
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 8 Slip is more than a binary label
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 8 Human texture perception and vibration
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 8 The “PBR for touch” analogy
+8 5. Physics engines and tactile simulation techniques
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 9 Optical tactile rendering: TACTO, GelSight in Gazebo, Taxim, Tactile Gym 2.0
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 9 TacSL and newer GPU pipelines
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 9 HydroelasticTouch and Drake
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 9 High-fidelity elastomer mechanics
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 10 Simulation backends in the discussion
+10 6. Inverse physics: learning material properties from touch
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 10 Relevant differentiable physics work
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 10 Identifiability is a major open issue
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 10 Hybrid simulation plus learned residual
+11 7. Multisensory object representations: ObjectFolder and related work
+11 8. Existing tactile world models: what they do and how
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 11 The generic training and usage loop
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 11 SPOTS — predicting touch and vision together
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 12 TacForeSight — anticipating local contact dynamics
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 12 TACO — imagined visuotactile corrections
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 12 FeelWorld — contact, force features and slip
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 12 ContactWorld — which representations actually help?
+13 9. Tactile foundation models and cross-sensor representations
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 13 Sparsh
+
+## PDF page 3
+TACTILE WORLD MODELS  /  COMPLETE RESEARCH REPORT
+23 OCT 2026  |  RESEARCH SYNTHESIS 3
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 13 AnyTouch and AnyTouch 2
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 13 Connecting Touch and Vision
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 13 The gap between recognition and prediction
+14 10. Human-like whole-body tactile sensing
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 14 What a full-body state might contain
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 14 Whole-body humanoid artificial skin
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 14 Scalable electronic skin: RobotSweater
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 14 ReSkin, AnySkin and D’Manus
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 14 A realistic hierarchical body design
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 15 Research reviews on whole-body skin
+15 11. Human tactile demonstrations and useful data
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 15 What data should be collected?
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 15 Sensor and object diversity: do not confuse variation sources
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 16 Data rights, provenance and standardized datasets
+16 12. Integrated architecture: from materials to world models
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 16 World/skin decoupling is essential
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 16 Two fidelity modes
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 17 A causal physical state vs. a latent state
+17 13. Research gap and technical obstacles
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 17 What to avoid claiming
+18 14. A feasible first research study: calibrated tactile material transfer
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 18 Research question and hypothesis
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 18 Experimental setup
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 18 Baselines and experimental comparisons
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 18 Held-out tests
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 19 Metrics and failure analysis
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 19 Milestones, in sequence
+19 15. Long-term roadmap and strategic implications
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 19 Three progressively harder deliverables
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 19 What could be commercially defensible?
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 20 Research vs. business claims
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 20 Best positioning for PhD research
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 20 Open questions raised by the conversation
+20 16. Research reading sequence and literature map
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 20 Priority sequence: 25 works
+
+## PDF page 4
+TACTILE WORLD MODELS  /  COMPLETE RESEARCH REPORT
+23 OCT 2026  |  RESEARCH SYNTHESIS 4
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 21 High-value review papers
+21 17. Annotated bibliography and direct links
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 21 Sensors / GelSight
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 21 Manipulation / tactile learning
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 21 Tactile simulation
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 21 Contact mechanics / tactile simulation
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 21 Physics engines / contact
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 21 Soft-contact / FEM
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 21 Physics engines
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 22 Differentiable physics
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 22 Contact mechanics
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 22 Multisensory objects
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 22 Texture perception
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 22 Texture and materials
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 22 Vision / touch fusion
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 22 Tactile representation learning
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 23 Whole-body tactile skin
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 23 Whole-body tactile skin / review
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 23 Replaceable tactile skin
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 23 Dexterous skin
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 23 Human demonstrations
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 23 Tactile world models
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 23 Review
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 24 Concept / review
+ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 24 Simulation documentation
+24 18. Compact technical glossary and assumptions
+How to use this report
+Sections 1-4 define the problem and representation; 5-9 review simulators, learned models, sensing and data; 10-13
+turn the literature into a testable research agenda; 14 gives the full literature map and reading order. The bibliography
+supplies direct clickable links.
+
+## PDF page 5
+TACTILE WORLD MODELS  /  COMPLETE RESEARCH REPORT
+23 OCT 2026  |  RESEARCH SYNTHESIS 5
+1. Executive synthesis
+Short answer: Tactile world models already exist. They predict future tactile or visuotactile observations from recent
+sensor readings, actions and sometimes force/torque signals. Examples are SPOTS, TacForeSight, TACO, FeelWorld and
+ContactWorld [39] [40] [41] [42] [43]. Their published demonstrations are mostly task-specific or sensor-specific; none
+establishes a universal, physically calibrated, whole-body tactile world.
+A conventional robot simulator already models rigid-body geometry, inertia, contact, friction and sometimes deformable
+mechanics. But a single friction coefficient or soft-contact parameter does not reproduce the fine spatial and temporal
+signals of fabric, wood grain, skin or rubber sliding over a fingertip. Optical tactile simulators can generate sophisticated
+sensor images; electronic skins sense distributed contact; tactile encoders learn compact representations. These
+advances solve different parts of the problem.
+Proposed long-term objective: Build a physically grounded somatosensory world model in which object materials and
+body sensors are modeled separately, a contact engine outputs pressure/shear/deformation/slip/vibration/heat, and a
+learned predictor improves dynamics forecasts and action selection. Whole-body touch is a long-term integration goal,
+not a prerequisite for a credible first experiment.
+What exists now What is still open
+Physics engines with friction, compliant contact and
+deformables
+Transferable fine-texture, microslip and vibration across arbitrary
+surfaces
+Tactile rendering for GelSight, DIGIT and similar sensors Sensor-independent physical contact fields and validat ed tactile asset
+formats
+Action-conditioned learned tactile / visuotactile prediction Generalization to unfamiliar loads, motions, m aterials, sensors and
+embodiments
+Partial or extensive robot-body electronic skin An inte grated, high-fidelity, human-scale simulated somatosensory
+body
+Multisensory object datasets and tactile feature encoders Jointly identifiable physical representations linked t o repeatable
+measurement standards
+Strongest near-term hypothesis: With limited real-world measurements, a physically structured material representation
+plus a learned residual can predict held-out tactile interactions more robustly than a purely data-driven sensor-output
+predictor. This is a research hypothesis to test, not an established result.
+
+## PDF page 6
+TACTILE WORLD MODELS  /  COMPLETE RESEARCH REPORT
+23 OCT 2026  |  RESEARCH SYNTHESIS 6
+2. Terminology and scope: physics engine vs. world model
+Term Meaning Role in this project
+Contact-rich physics simulator Computes contact forces, mo tion and deformation from
+bodies/materials/actions.
+Grounded physical dynamics.
+Tactile / haptic simulator Maps contact events to tacti le measurements or
+perceptual signals.
+Synthetic sensations for robot
+learning.
+Tactile world model Learned action-conditioned foreca st of tactile state
+(sometimes jointly with vision).
+Anticipation, planning and control.
+Somatosensory world model Proposed broad phrase for distrib uted body touch plus
+physical prediction.
+Long-term system framing, not a
+universal established definition.
+Tactile material library Reusable spatially and dynami cally calibrated material
+descriptions.
+Portable simulation assets.
+Haptic foundation model General pretrained model cover ing multiple touch/haptic
+settings.
+Representation and transfer research
+direction.
+The safest concise project name is physically grounded tactile world model for the predictive component, with a
+tactile-aware physics and sensor simulation layer underneath it. The eventual full-body system can reasonably be
+described as a somatosensory world model.
+Why vision alone is not enough
+Two surfaces can look identical yet differ in friction, stiffness, viscoelasticity, temperature and wear. Touch supplies
+latent information that determines whether a grasp slips, a surface scratches, an insertion jams or an object deforms.
+SPOTS specifically studies settings with visually similar objects but different physical properties and finds tactile signals
+are most valuable when the physical differences are visually ambiguous [39].
+Why “a 3D model plus friction” is not enough
+Traditional simulation does include forces and friction; it is inaccurate to say world models or physics engines have only
+3D meshes. The limitation is that many robotics pipelines do not render sensor-realistic, high-frequency, spatially
+distributed tactile experiences. A friction coefficient can help predict gross sliding; it cannot by itself recreate the woven
+microtexture of denim or the vibration spectrum of brushed metal.
+3. What to represent in a touchable physical world
+A touchable object needs more than a texture image. A useful physical description has geometry at several scales; local
+mechanical, tribological and thermal properties; and uncertainty about those properties. The robot also has its own
+compliant skin and sensor dynamics. These are distinct entities.
+Layer State / parameters Why it matters
+Macro geometry Mesh, signed distance field (SDF), collisio n
+geometry
+Where and how the bodies meet.
+Microgeometry Height field, weave, pores, scratches, orie ntation
+maps
+Microcontacts, roughness and dynamic
+excitation.
+
+## PDF page 7
+TACTILE WORLD MODELS  /  COMPLETE RESEARCH REPORT
+23 OCT 2026  |  RESEARCH SYNTHESIS 7
+Layer State / parameters Why it matters
+Friction / tribology Static and kinetic friction, ani sotropy, rate/load
+dependence
+Sliding, stick-slip, incipient slip.
+Compliance Stiffness or Young’s modulus, Poisson ratio, local
+anisotropy
+Contact patch and pressure under load.
+Damping / viscoelasticity Rate-dependent losses and relaxa tion Contact hysteresis and transients.
+Adhesion Attraction, tack and separation force Soft and st icky surfaces.
+Thermal Conductivity, heat capacity and thermal cont act Why two equally warm materials feel different.
+Vibration / acoustics Frequency-dependent mechanical response Fine texture during rubbing, tapping or impac t.
+Contact state Normal pressure, shear traction, slip, deform ation,
+temperature
+What actually drives a simulated sensor.
+A basic material record might contain a mean friction coefficient and bulk stiffness. That describes a material category,
+not a complete tactile texture. For a surface parameterized by local coordinates (u,v), propose a spatial material field:
+M(u,v) = [ h(u,v), μs(u,v), μd(u,v), E(u,v), ν(u,v), η(u,v), A(u,v), kth(u,v), ... ]
+Here h is microgeometry height; μ are friction parameters; E and ν describe elasticity; η is damping/viscoelastic
+behavior; A is adhesion; and kth is a thermal parameter. A richer implementation allows orientation, strain, speed,
+normal load, time, wear and environmental conditions to affect those values.
+Material is not sensation
+The same object produces different signals when pressed, slid or tapped. Therefore, the sensation is a function of
+material + surface geometry + action + contact physics + the sensing body:
+Tsensor(t) = Rendersensor( Contact( M, G, Body, a(0:t) ) )
+Example tactile outputs range from an optical GelSight RGB/deformation image to a sampled pressure/taxel array or
+even a three-channel 128 × 128 normal/shear-force grid (the latter is an illustrative output design, not a universal
+sensor standard). A smooth glass surface is nearly flat, comparatively stiff and often frictionally uniform at the
+resolution of a coarse model. Denim has oriented weave microgeometry and direction-dependent interactions. Rubber
+may have strong compliance, adhesion and rate-dependent hysteresis. These are qualitative examples; numerical
+values must come from measurement.
+Illustrative tactile material asset
+Denim_12oz_014.tactile (hypothetical file schema): spatial height/normal maps; weave period and direction; local
+friction parameters with uncertainty; normal/shear compliance; mechanical damping; temperature-dependent
+properties; calibration provenance; supported scales, ranges of loading/speed, and validation errors. Specific values
+such as a 0.4 mm period or friction 0.52, mentioned in our earlier discussion, were illustrative only, not empirical
+estimates for denim.
+Other example material assets discussed: oak wood, brushed aluminum, corrugated cardboard, cotton, silicone rubber,
+smooth glass and human fingertip/forearm skin. Each would require standardized characterization before becoming an
+interchangeable simulation asset.
+
+## PDF page 8
+TACTILE WORLD MODELS  /  COMPLETE RESEARCH REPORT
+23 OCT 2026  |  RESEARCH SYNTHESIS 8
+4. How texture becomes a tactile signal
+The critical physical chain is: surface topography and material properties → contact mechanics →
+pressure/shear/slip/vibration/heat → sensor output. Fine tactile texture is typically dynamic: sliding excites frictional
+forces and vibrations, so surface roughness alone does not specify the experience.
+Normal and tangential contact
+A point-contact approximation may report only an aggregate normal force. A touch-aware simulator should ideally
+produce a distributed contact patch:
+C(u,v,t) = [ Pn, τx, τy, δ, vslip, T, q, ... ](u,v,t)
+Pn is pressure; τ are tangential tractions; δ is deformation; vslip local sliding velocity; T is temperature; q heat flux or
+related signal. The sensor renderer can then integrate or filter C into pixels, taxels, magnetic readings or strain gauge
+signals.
+Slip is more than a binary label
+Contact may transition from sticking to partial slip and then gross sliding. Incipient slip can begin at the edge of a
+contact patch before the object visibly moves. Realistic simulation may need friction that depends on speed, load,
+surface condition and direction. For texture, compare temporal force fluctuations and vibration spectra across scanning
+speeds, not just scalar friction coefficients.
+Human texture perception and vibration
+Human-inspired research highlights the joint role of slowly varying deformation and fast vibration. One 2023
+sensory-system paper measures both spatial pressure and high-frequency responses and demonstrates texture
+recognition [20]. Related material-identification work studies thermal and vibration cues, cross-modal texture reasoning
+and triboelectric effects [21] [22] [23] [24] [25]. These are useful for selecting which physical quantities to measure, but
+recognition accuracy alone does not establish that a simulator can synthesize touch.
+The “PBR for touch” analogy
+Visual physically based rendering (PBR) commonly uses maps such as albedo, normal and roughness. The proposed
+analogy is a standardized physically based tactile material encoding microgeometry, friction, compliance, damping,
+adhesion, thermal behavior and uncertainty. Unlike ordinary visual textures, tactile assets must be specified with units,
+measurement protocols and validity ranges. The target is not a new file extension alone; it is a material representation
+whose predictions survive changes in action and sensor.
+5. Physics engines and tactile simulation techniques
+Different simulators solve different levels of fidelity. A high-quality robotics system will likely be multiscale: fast
+approximate dynamics for planning, selectively high-fidelity soft-contact simulation for calibration, and efficient learned
+residuals for texture or sensor-specific phenomena.
+Approach Typical output Strength / weakness
+Rigid-body engine (MuJoCo, PhysX) Object poses, contact fo rces,
+joints
+Fast robot control; limited fine tactile detail without
+extensions.
+Hydroelastic contact (Drake and
+related)
+Contact surfaces, distributed
+normal pressure
+Closer to skin pressure fields; details still depend on
+material/discretization.
+
+## PDF page 9
+TACTILE WORLD MODELS  /  COMPLETE RESEARCH REPORT
+23 OCT 2026  |  RESEARCH SYNTHESIS 9
+Approach Typical output Strength / weakness
+Sensor image rendering (TACTO,
+Taxim)
+GelSight/DIGIT-like tactile images
+or markers
+Realistic for specified optical sensors; not
+automatically a general material model.
+GPU visuotactile systems (TacSL) Tactile images/contact-forc e
+maps at scale
+Useful for learning; modeling assumptions and
+calibration remain crucial.
+FEM / SOFA Spatial deformations, stresses,
+strain
+Rich soft-body mechanics; computationally expensive.
+MPM / differentiable simulation Deforming material state an d
+gradients
+Powerful for inverse material identification; harder to
+validate across texture scales.
+Optical tactile rendering: TACTO, GelSight in Gazebo, Taxim, Tactile Gym 2.0
+TACTO demonstrates fast configurable rendering for high-resolution optical tactile sensing [4]. GelSight-in-Gazebo work
+introduces synthetic GelSight-style contact images in conventional robotics simulation [5]. Taxim uses an
+example-based model, including optical response and elastomer/marker displacement, to better reproduce GelSight
+observations [6]. Tactile Gym 2.0 extends optical tactile learning and sim-to-real evaluation across tactile sensor
+designs [7].
+These systems are crucial, but optical realism and physical validity are separate questions. A generated tactile RGB
+image may look plausible while encoding inaccurate friction, microscopic shear or vibration. Sim-to-real validation
+should compare measured physical outcomes, not only image similarity.
+TacSL and newer GPU pipelines
+TacSL integrates accelerated visuotactile simulation and robot-learning workflows in a GPU ecosystem [8]. Isaac Lab’s
+experimental visuotactile module can calculate normal/shear force fields with an elastomer response [49]. These
+systems may make large-scale policy training practical, but the user’s proposed ambition still requires broader material
+parameterization, better experimental calibration and whole-body coverage.
+HydroelasticTouch and Drake
+Hydroelastic formulations replace one isolated contact point with a surface carrying pressure information.
+HydroelasticTouch applies this principle to tactile rendering [9], while Drake documents compliant/hydroelastic contact
+mechanics [10]. NVIDIA’s emerging hydroelastic contact tools pursue similar distributed contact primitives [50]. Spatial
+contact matters because fingertip and skin observations depend on where forces are applied, not only their total
+magnitude.
+High-fidelity elastomer mechanics
+FEM-based approaches can model the elastic skin geometry, marker movement and internal stress much more
+explicitly, though at a significant computational cost. The 2026 marker-level 3D deformation study exemplifies
+physics-rich visuotactile sensor modeling [11]. This makes it valuable as a reference simulator to calibrate faster tactile
+approximations.
+
+## PDF page 10
+TACTILE WORLD MODELS  /  COMPLETE RESEARCH REPORT
+23 OCT 2026  |  RESEARCH SYNTHESIS 10
+Simulation backends in the discussion
+MuJoCo is a strong starting point for control and contact-rich robotics [12]. Drake offers well-developed
+compliant-contact machinery. Isaac/PhysX provides scalable GPU robot-learning infrastructure [48]. SOFA is useful for
+detailed deformable bodies and virtual prototypes. Taichi/MPM provides differentiable continuum-mechanics
+experiments. A plausible design uses an existing physics engine as the dynamics backbone and adds a portable tactile
+contact/material layer, instead of rewriting rigid-body simulation from scratch.
+6. Inverse physics: learning material properties from touch
+The core data-to-world question is whether you can infer physical material parameters from known actions and
+measured contact responses. This is a form of inverse mechanics / system identification, distinct from simply learning to
+classify textures.
+θ* = arg minθ Σa∈A d( Sim(M(θ), a), Treal(a) ) + λ R(θ)
+Here θ contains physically meaningful model parameters; A is a set of probing actions; d compares predicted and
+observed signals; and R regularizes ambiguous solutions. A differentiable simulator can provide gradients, but even
+nondifferentiable systems can be fit through search or surrogate models.
+Relevant differentiable physics work
+ChainQueen applies differentiable material-point simulation to soft robotics [13]. DiffTaichi develops differentiable
+programming for physical simulation [14]. PlasticineLab uses differentiable mechanics for deformable-body
+manipulation [15]. Dojo investigates differentiable robot contact/friction and system identification [16]. IPC and related
+work improve robust treatment of deformable-body contact [17]. None alone solves tactile material identification, but
+they supply mathematical infrastructure for it.
+Identifiability is a major open issue
+The same force trace may be reproduced by different combinations of sensor compliance, object compliance, friction
+and geometric microstructure. Accurate labels therefore need controlled normal loads, independent force/torque
+measurement, known motion, calibration specimens, repeat measurements, and multiple action types. A model that fits
+seen pressing trajectories may still fail under new sliding speeds. Sensor aging, fabrication variability, temperature and
+wear must be separated from material properties.
+Hybrid simulation plus learned residual
+An effective architecture may use: (i) a physical material/contact model for causally meaningful pressure and shear; (ii)
+an observation model for a particular sensor; and (iii) a learned residual to capture microtexture, optical effects,
+unmodeled vibration or solver bias. In abstract form:
+Tpred = Render( Contact(θ, a) ) + ResidualML(history, a)
+The residual should remain limited and tested out of distribution, otherwise the model risks reverting to a black-box
+texture predictor. An uncertainty estimate should flag conditions beyond the calibrated loading, speed, sensor or
+environmental range.
+
+## PDF page 11
+TACTILE WORLD MODELS  /  COMPLETE RESEARCH REPORT
+23 OCT 2026  |  RESEARCH SYNTHESIS 11
+7. Multisensory object representations: ObjectFolder and
+related work
+ObjectFolder is among the closest precursors to the idea of a downloadable touchable object. Its implicit
+representations let virtual objects produce visual, auditory and tactile observations; ObjectFolder 2.0 scales the concept
+to 1,000 common objects and studies sim-to-real transfer [18] [19].
+The crucial architectural difference in the proposed project is to distinguish a physical object field from a
+sensor-dependent tactile response. An object-specific tactile network can generate the appropriate GelSight image
+without necessarily determining a stable set of coefficients governing friction, wear, compliance or force under arbitrary
+new motions. A more transferable system would separate:
+Geometry + intrinsic material field → contact mechanics → canonical physical contact state → sensor renderer →
+observed tactile stream.
+This structure could allow a new tactile sensor, body skin or robot to interact with the same material asset. It also
+enables benchmarks for each link in the chain rather than evaluating only the final image. Vision-touch cross-modal
+prediction 
+[26] provides a useful complementary learned baseline.
+8. Existing tactile world models: what they do and how
+The five models discussed in our October conversation establish that learned tactile prediction already exists. They are
+not equivalent to a complete virtual physical world. Most learn regularities from recorded interaction trajectories rather
+than reconstructing the full underlying microscale material mechanics.
+The generic training and usage loop
+• Collect synchronized demonstrations of pushing, grasping, sliding, insertion or wiping with cameras, tactile sensors,
+motor actions, robot state and often wrist force/torque.
+• Encode tactile images or taxels into a lower-dimensional latent representation; encode video, proprioception and
+candidate actions.
+• Predict future tactile signals, latent states, visual frames, contact events or slip across a limited horizon.
+• Act by planning against these futures, detecting impending instability, or synthesizing recovery examples for policy
+learning.
+p( zt+1:t+H
+touch, zt+1:t+H
+vision | historyt, at:t+H )
+For intuition, consider a robot holding a glass: it senses the current grasp, imagines loosening its fingers, forecasts
+falling contact pressure and possible slip, and tightens its grip. This is predictive sensor modeling even if the system
+never explicitly estimates the glass friction coefficient.
+SPOTS — predicting touch and vision together
+What: SPOTS jointly predicts future visual and tactile frames from robot-pushing trajectories. It uses modality-specific
+pathways with cross-modal interaction. Why: touch adds information especially when objects look the same but differ
+physically. Boundary: the experiments involve pushing and particular tactile measurements, not arbitrary materials or
+whole-body touch [39].
+
+## PDF page 12
+TACTILE WORLD MODELS  /  COMPLETE RESEARCH REPORT
+23 OCT 2026  |  RESEARCH SYNTHESIS 12
+TacForeSight — anticipating local contact dynamics
+What: TacForceWM encodes dual-finger tactile observations into compact latent states and predicts their near-term
+evolution conditioned on wrist force/torque; the resulting prediction informs a tactile-conditioned policy. Tasks: wiping,
+swiping, adjustments and insertions, including disturbances. Boundary: short-horizon tactile latent forecasting, not a
+general reusable friction/texture asset [40].
+TACO — imagined visuotactile corrections
+What: a Recognize–Imagine–Label process identifies failure-adjacent robot states, generates possible corrective
+video/tactile trajectories, labels candidate actions and filters for plausible recovery. Reported metric: average task score
+improved from 0.375 to 0.825 after two post-training iterations in its evaluated setting. Boundary: the metric is
+paper-specific and does not establish general material simulation [41].
+FeelWorld — contact, force features and slip
+What: jointly predicts visual latents and three tactile components: contact occurrence, a compact force-related 3D
+tactile latent, and slip state. Contact-gated attention emphasizes touch when contact actually occurs, and predicted
+states support planning. Reported metric: 81.7% mean zero-shot planning success in the authors’ evaluated tasks.
+Boundary: task- and representation-specific empirical result, not a transferable whole-body material library [42].
+ContactWorld — which representations actually help?
+What: evaluates different visual/tactile representations across 12 contact-rich tasks; emphasizes spatial structure and
+temporal continuity. Reported metrics: average planning success of 32.1% with point-cloud observations versus 36.1%
+when tactile force-field information is combined, with vision-only camera baselines lower. Boundary: controlled
+benchmark results; the importance of structure does not prove a universal contact simulator [43].
+Project Prediction / method Takeaway for your direction
+SPOTS Joint tactile + image future in pushing Touch matt ers most when physics is visually
+ambiguous.
+TacForeSight Wrist-force-conditioned short-horizon tact ile
+latent
+Contact forecasts can guide high-frequency
+control.
+TACO Generate, filter and label recovery trajectories World models can create contact-aware policy
+training data.
+FeelWorld Contact, compact force features, slip + visual
+latent
+Separate physical contact events from image
+appearance.
+ContactWorld Compare visual/tactile latent representat ions
+for planning
+Spatial structure and cross-modal alignment
+matter.
+Comparison warning: Reported planning successes, task scores and prediction errors are not directly comparable across
+different papers, sensors or tasks. Read the experimental protocols before treating any number as a ranking.
+
+## PDF page 13
+TACTILE WORLD MODELS  /  COMPLETE RESEARCH REPORT
+23 OCT 2026  |  RESEARCH SYNTHESIS 13
+9. Tactile foundation models and cross-sensor
+representations
+A world model should not necessarily process millions of raw taxel or image values at each step. Tactile representation
+learning compresses sensor signals into a meaningful state z_touch that can be fused with vision, body pose, robot
+actions, and force/torque.
+Raw tactile stream → Tactile encoder → ztouch → Action-conditioned dynamics model
+Sparsh
+Sparsh learns broad vision-based tactile features from unlabeled touch images and evaluates these representations on
+tactile tasks. Its importance is methodological: tactile perception can be pretrained rather than learned from scratch for
+each grasp or surface. However, good downstream scores do not imply the learned embedding corresponds one-to-one
+with intrinsic physical coefficients [27].
+AnyTouch and AnyTouch 2
+AnyTouch aligns tactile representations across heterogeneous visuotactile sensors, suggesting that a common latent
+space could allow transfer across hardware. AnyTouch 2 extends the program toward temporal/contact dynamics and
+force-aware information [28] [29]. A sensor-agnostic latent is valuable, but it is not automatically a sensor-independent
+physical contact field. The proposed architecture should keep those concepts separate.
+Connecting Touch and Vision
+Cross-modal prediction research shows visual cues can predict tactile-related information and tactile cues can inform
+visual inference [26]. This supports a multisensory world model with a shared physical latent state, but
+action-conditioned validation remains essential: recognizing that a cloth is rough is not the same as predicting how
+force and vibration change during a new stroke.
+The gap between recognition and prediction
+Learning objective Example target Scientific limitation
+Texture recognition Classify denim vs cotton Labels do not  describe new motions or forces.
+Tactile representation Compress to transferable z_touch La tents may be hard to interpret physically.
+Tactile prediction Predict future sensor readings Could o verfit a known sensor/task distribution.
+Physical parameter estimation Estimate friction/complianc e from many
+probes
+Parameters may be ambiguous without
+independent ground truth.
+Generative physical tactile world Predict contact + ar bitrary sensor outputs Requires joint mechanics, calibra tion, action
+diversity and validation.
+
+## PDF page 14
+TACTILE WORLD MODELS  /  COMPLETE RESEARCH REPORT
+23 OCT 2026  |  RESEARCH SYNTHESIS 14
+10. Human-like whole-body tactile sensing
+Human somatosensation goes beyond fingertip contact. Skin conveys pressure, motion, vibration, stretch, warmth and
+cold; the body simultaneously integrates proprioception and motor predictions. A robot approximating human-scale
+touch needs distributed sensors, calibration, skin geometry, bandwidth management and a body-aware
+perception/control system.
+What a full-body state might contain
+Skin(s,t) = [ P, Fx, Fy, Fz, shear, slip, vibration, temperature, deformation ]
+Here s indexes points on the robot’s physical body surface. No existing affordable skin necessarily measures all
+components directly at high resolution. Some must be estimated from nearby measurements or from a mechanistic skin
+model. The target is a distributed sensing and state-estimation system, not simply a dense matrix of force values.
+Whole-body humanoid artificial skin
+A self-organizing modular multimodal skin has been demonstrated on a humanoid body in earlier research [30]. Newer
+whole-body tactile-control work uses distributed pressure/force, proximity, vibration or temperature readings to inform
+compliant contact behavior [31]. These show that whole-body tactile sensing and control are active research areas,
+though they do not provide a universal physics-calibrated texture world model.
+Scalable electronic skin: RobotSweater
+RobotSweater develops a customizable knitted pressure-sensitive skin that can cover curved and large areas and
+detect/localize contact [32]. Its relevance is scalability: a humanoid cannot afford an optical camera and elastomer
+assembly beneath every square centimeter. Lower-resolution large-area pressure skin may coexist with dense,
+high-bandwidth fingertips.
+ReSkin, AnySkin and D’Manus
+ReSkin studies flexible magnetic tactile sensing with replaceable sensing surfaces [35]. AnySkin explores a practical
+plug-and-play direction and transfer across replacement skins [36]. D’Manus distributes magnetic sensing across the
+fingers and palm and offers relevant integrated hand/simulation ideas [37]. These works motivate a central
+standardization problem: signals from two skins may differ because of manufacturing, electronics or calibration even on
+the same object.
+A realistic hierarchical body design
+• Fingertips: high-spatial-resolution normal/shear contact, microslip, vibration and local deformation.
+• Palms / feet: broad contact patches, load distribution, shear direction and stability.
+• Arms / torso / legs: coarser large-area pressure, proximity and protective contact sensing, with local higher-resolution
+zones where needed.
+• Central representation: map every measurement to registered body geometry, time, calibration metadata and an
+uncertainty estimate.
+This yields heterogeneous resolution, which is likely more practical than identical “human-like” sensing everywhere. It
+also introduces a modeling challenge: sensors across the body must have a shared coordinate system and comparable
+units even when their sensing physics differs.
+
+## PDF page 15
+TACTILE WORLD MODELS  /  COMPLETE RESEARCH REPORT
+23 OCT 2026  |  RESEARCH SYNTHESIS 15
+Research reviews on whole-body skin
+The 2025 humanoid e-skin review summarizes receptor modalities and integration issues [33]. A separate review
+surveying many human-inspired e-skin approaches highlights fragmented specifications and standards [34]. Both
+support the need for common data schemas and calibration protocols; neither resolves the material simulation problem
+by itself.
+11. Human tactile demonstrations and useful data
+One route is to collect contact-rich human movement with an instrumented glove or suit rather than only industrial
+robot trajectories. The Feel the Force project uses force/tactile information from human demonstration to inform robot
+action [38]. The broader research idea is to observe: human hand/body motion, video, time-synchronized contact,
+normal/shear force, high-frequency vibration, and the identity and measured geometry of the touched object.
+What data should be collected?
+Data stream Minimum logging expectation Reason
+Actions and motion Pose, velocity, contact direction, t rajectories, timebase Makes tactile response
+action-conditioned.
+Forces Independent normal and tangential force, torqu e when
+possible
+Anchors calibrated mechanics.
+Tactile Raw sensor channels and processed maps Enables late r model changes and
+auditing.
+Visual / geometry Synchronized video, body/object mesh es or scans Defines where and what is touched.
+Material/sample metadata Specimen ID, batch, fabricatio n, thickness, humidity, age Separates variation from tru e physical
+properties.
+Sensor metadata Sensor ID, replacement, calibration, te mperature,
+resolution
+Tests transfer across hardware.
+Repeat trials Multiple loads, speeds, directions, days, o perators Tests reproducibility and uncertainty.
+The earlier discussion considered pressing, sliding, twisting, tapping, gripping, incipient slip and disturbance/recovery.
+For this specific material-modeling objective, structured loading and sliding protocols are more informative than
+unstructured hours of demonstrations. Collect both what happens and what controlled action caused it.
+Sensor and object diversity: do not confuse variation sources
+To measure transfer, vary materials, object exemplars, sensor units and fabrication batches deliberately. More objects
+are not a substitute for multiple replacement sensors; multiple sensors are not a substitute for unseen sliding speeds or
+normal loads. ReSkin/AnySkin motivates explicit sensor-interchange experiments, and the discussion noted that learned
+transfer can still leave physical-scale force bias. Consequently any self-supervised alignment should be supplemented
+by independently measured force labels before it is interpreted as metrological calibration [35] [36].
+
+## PDF page 16
+TACTILE WORLD MODELS  /  COMPLETE RESEARCH REPORT
+23 OCT 2026  |  RESEARCH SYNTHESIS 16
+Data rights, provenance and standardized datasets
+A commercially useful dataset needs explicit rights for collection and licensing, object/material provenance, sensor
+calibration records and clear measurement units. Preserve original time-stamped raw signals so future tactile encoders
+and contact models can be retrained. Synchronization should be evaluated quantitatively; a sensor supplier’s
+advertised time alignment does not itself establish end-to-end measurement accuracy.
+12. Integrated architecture: from materials to world models
+The proposed design separates what belongs to the world, what belongs to the robot body, and what the learning
+system predicts. This is the major integration concept throughout our discussion.
+Component Input Output
+A. Physical world asset Mesh/SDF; material field; surface
+microgeometry; environment
+Interacting physical surface.
+B. Robot body / action Body mesh; compliance; motion; c ommand;
+sensor placement
+Contact kinematics.
+C. Contact engine A + B Pressure, shear, deformation, slip,
+vibration/heat estimates.
+D. Sensor renderer Canonical contact field + sensor calib ration GelSight image, taxels, magnetic signal,
+pressure map, etc.
+E. Multimodal encoder Rendered or real touch; vision;  proprioception Aligned latent state with uncertainty .
+F. World model + policy Latent state and candidate ac tions Future contact predictions and selected
+action.
+World/skin decoupling is essential
+Keep the object’s intrinsic properties separate from the sensor response. Do not train one object→GelSight image
+network and call that a sensor-independent material model. The most portable interface is a documented contact field
+with spatial coordinates, standard units, time resolution, numerical tolerances and calibration assumptions.
+Two fidelity modes
+• Fast training mode: approximate contact patches, learned vibration residuals, GPU-parallel sensing, coarse body taxels.
+Optimized for large-scale policy rollouts.
+• Accurate validation mode: higher-resolution microgeometry, nonlinear contact, FEM reference simulations, higher
+sampling rates and detailed sensor calibration. Optimized for measuring error and identifying parameters.
+This split is a practical way to reconcile a world-model training loop with the physical complexity of fine texture. A
+full-FEM, whole-body millisecond-by-millisecond world may be computationally prohibitive; the model should spend
+precision where it affects action.
+
+## PDF page 17
+TACTILE WORLD MODELS  /  COMPLETE RESEARCH REPORT
+23 OCT 2026  |  RESEARCH SYNTHESIS 17
+A causal physical state vs. a latent state
+A latent z_touch can be excellent for predicting slip while encoding friction and deformation in uninterpretable
+combinations. A physical state provides units and more explicit counterfactuals but may miss sensor artifacts or
+complex tribology. The strongest strategy may be to retain both: physical parameters for intervention and an
+expressive latent for residual dynamics. The models must be independently evaluated against held-out actions and
+samples.
+13. Research gap and technical obstacles
+The central research gap is not “no tactile world models exist.” It is the absence, among the systems discussed here, of
+a broadly validated, reusable stack that combines intrinsic tactile material assets, realistic dynamic contact, multiple
+sensor modalities, and high-coverage body sensing with action-conditioned planning.
+Obstacle Why difficult What would count as progress
+Physical identifiability Different parameter combinations y ield
+similar contact traces.
+Recover stable physical parameters from
+diverse probes.
+Fine texture / bandwidth Microtexture excites fast cont act dynamics. Correct vibration spectra across held-out
+speeds.
+Sensor bias Skin replacement and calibration shift force
+scale.
+Transfer to new sensor units with limited
+recalibration.
+Scale separation Whole-body touch vs millimeter/microm eter
+contacts.
+Selective multiresolution contact with bounded
+error.
+Data diversity Too few loads, speeds, materials or batches. Pr oper held-out axes and documented
+coverage.
+World model drift Autoregressive predictions accumulate error. Long-horizon stability and calibrated
+uncertainty.
+Contact and slip Partial slip, adhesion and nonlinear
+deformation.
+Predict onset, contact patch shape and
+recovery.
+Proof of robot utility Good sensor-image metrics may not h elp
+policies.
+Better grasp/push/insertion success with tactile
+model.
+What to avoid claiming
+• Do not claim existing physics engines model no friction; they generally do at several degrees of fidelity.
+• Do not equate recognition embeddings, sensor image synthesis, contact mechanics and whole-body somatosensation.
+• Do not claim a learned predictor “understands material” merely because it forecasts one familiar motion.
+• Do not equate cross-sensor feature alignment with physical force calibration.
+• Do not interpret one paper’s task score as directly comparable to another paper’s success rate.
+• Do not claim no one has explored tactile world models: SPOTS, TacForeSight, TACO, FeelWorld and ContactWorld are
+direct counterexamples.
+
+## PDF page 18
+TACTILE WORLD MODELS  /  COMPLETE RESEARCH REPORT
+23 OCT 2026  |  RESEARCH SYNTHESIS 18
+14. A feasible first research study: calibrated tactile material
+transfer
+A strong first paper or startup prototype is not a full-body human-touch simulator. It is a controlled demonstration that a
+learned physical surface model predicts tactile behavior under new actions better than existing alternatives. The study
+needs reproducible measurements, baselines and a clear failure analysis.
+Research question and hypothesis
+Question: Can a reusable, physically parameterized tactile material representation learned from a small set of
+controlled interactions accurately predict force, vibration, slip and tactile observations under previously unseen contact
+conditions?
+Hypothesis: With equal training data, a hybrid physics+residual model will generalize more robustly across unseen
+normal forces, scan speeds, directions and sensor instances than a sensor-specific black-box predictor.
+Experimental setup
+• Materials: 3-5 well-characterized surfaces with contrasting physics: smooth polymer/glass-like surface, silicone rubber,
+denim or woven fabric, corrugated cardboard and brushed metal. Use repeat specimens.
+• Actuator: robot arm or controlled linear stage with a repeatable probe trajectory; log commanded and measured
+motion.
+• Sensors: one tactile fingertip/probe plus independent force/torque measurement; if possible a high-sample-rate
+vibration sensor and visible markers for motion tracking.
+• Trials: normal indentation and release, speed-controlled sliding, multiple normal loads, two or more scan directions; add
+taps/twists only after a reliable baseline.
+• Synchronization: all streams on a checked time base with known frame/sample rates; archive raw calibration and
+contact geometry.
+Baselines and experimental comparisons
+Arm Method Expected behavior to evaluate
+A: Purely learned Action-conditioned network directly  forecasts
+tactile/force signals.
+Potential strong interpolation; test extrapolation
+and sensor replacement.
+B: Physics only Fit simple friction/compliance and
+deterministic contact.
+Interpretability; may miss dynamic fine texture.
+C: Hybrid (primary) Fit physical parameters + learned r esidual. Does physical structure improve transfer?
+D: Strong literature baseline Adopt/reproduce relevant  representation or
+prediction method.
+Avoid beating only deliberately weak baselines.
+Held-out tests
+• Unseen combinations of normal force and scan speed; avoid only random train/test trial splits.
+• New scan directions and contact locations on the same material.
+• Different manufactured specimens and different days, to test physical variability.
+• Replacement tactile sensor or separately calibrated second unit, to test sensor transfer.
+
+## PDF page 19
+TACTILE WORLD MODELS  /  COMPLETE RESEARCH REPORT
+23 OCT 2026  |  RESEARCH SYNTHESIS 19
+• If feasible, a new probe shape or an independent manipulation task for downstream validation.
+Metrics and failure analysis
+Report calibrated normal/shear force error; contact-area or pressure-field error; slip-onset timing and detection;
+frequency-domain vibration similarity; temporal prediction robustness; sensor transfer/calibration cost; and real
+downstream grasp, push or insertion success. Include per-material and per-held-out-condition breakdowns, error bars
+across repeated trials, and ablations removing microgeometry, friction, physical supervision or learned residuals.
+Milestones, in sequence
+• Phase 1 - Measurement: get one probe, one force reference and one material to produce repeatable press/slide traces;
+verify calibration.
+• Phase 2 - Contact baseline: fit a simple friction/compliance model and predict an untouched trial; characterize the
+dominant errors.
+• Phase 3 - Material comparison: expand to 3-5 surfaces and controlled ranges of speed, load and direction.
+• Phase 4 - Learning baselines: compare black-box predictor, pure physics and hybrid residual under identical held-out
+tests.
+• Phase 5 - Transfer: test a new specimen/sensor instance and demonstrate improvement in at least one robot task.
+• Phase 6 - Reuse: export machine-readable material assets and connect them to a simulator independent of the original
+hardware.
+Publication target: a falsifiable contribution to tactile representation and inverse physical modeling. A credible negative
+result that explains non-identifiability or cross-sensor failure can also be scientifically meaningful.
+15. Long-term roadmap and strategic implications
+Three progressively harder deliverables
+Stage Deliverable Core proof
+1. Tactile material database Reproducibly calibrated surfaces with provenance
+and uncertainty.
+Predicts held-out tactile interactions.
+2. Somatosensory simulation
+layer
+Canonical contact fields and adapters for several
+tactile devices / body regions.
+Sensor- and embodiment-transfer in simulator
+and hardware.
+3. Tactile world model Predictive vision+touch+action model supporting
+robot control.
+Improves performance on unfamiliar
+contact-rich tasks.
+What could be commercially defensible?
+The central value proposition is not collecting enormous unstructured touch recordings. It is turning well-measured
+physical interactions into reusable, validated simulation-ready tactile material assets, with calibration procedures,
+provenance and known generalization bounds. A secondary offering could be standardized sensor data adapters and
+tactile simulation/robot-learning benchmarks. A third offering, later, could be a broad multimodal world model.
+
+## PDF page 20
+TACTILE WORLD MODELS  /  COMPLETE RESEARCH REPORT
+23 OCT 2026  |  RESEARCH SYNTHESIS 20
+Research vs. business claims
+A material database is only useful to customers if synthetic tactile training demonstrably improves a real manipulation
+outcome (success rate, drops, excess force, tolerance to object variation or adaptation cost). This requires controlled
+tests against comparable vision-only, force-only and raw-tactile baselines. Market value, exclusivity, demand and
+willingness to pay were not established by the papers discussed; they need direct customer validation.
+Best positioning for PhD research
+A research program should emphasize an identifiable, testable scientific question rather than only a product vision. A
+strong first submission would include a dataset with rigorous ground truth, a physically interpretable model or a new
+benchmark, controlled ablations and held-out transfer tests. Whole-body tactile intelligence then becomes a coherent
+long-term research arc connecting contact physics, machine perception and robot learning.
+Open questions raised by the conversation
+• How many independent physical parameters can touch actually identify, and under what action diversity?
+• Is microgeometry essential, or can a low-dimensional speed/load-dependent response model suffice for robot policy
+training?
+• Which physical quantities must be modeled explicitly, and which can be learned as a residual?
+• How does calibration error vary across tactile skins, fabrication batches, days and sensor types?
+• What is the cheapest sensing protocol that achieves reliable cross-action transfer?
+• Can a contact-field representation reproduce different sensors without per-object retraining?
+• Does pressure/shear/vibration fidelity lead to measurable success on unfamiliar objects, or are simpler tactile cues
+sufficient?
+• How should a humanoid allocate sensing density across fingertips, palms, feet and torso?
+16. Research reading sequence and literature map
+The following sequence preserves the reading plan discussed earlier, but organizes it as prerequisites rather than
+ranking every paper by importance. The annotated literature catalog after this section includes all significant items
+referenced in the conversation.
+Priority sequence: 25 works
+Understand what touch sensors measure. GelSight [1]; Improved GelSight [2]; ReSkin [35]; AnySkin [36]
+Extend to larger tactile embodiment. Whole-body humanoid skin [30]; RobotSweater [32]
+Learn to synthesize tactile signals. TACTO [4]; Taxim [6]; TacSL [8]; HydroelasticTouch [9]; Drake contact [10]
+Learn contact and inverse physics. ChainQueen [13]; DiffTaichi [14]; Dojo [16]; IPC [17]
+Understand multisensory objects. ObjectFolder [18]; ObjectFolder 2.0 [19]; Connecting Touch and Vision [26]
+Learn tactile representations. Sparsh [27]; AnyTouch [28]; AnyTouch 2 [29]
+Study modern world models. SPOTS [39]; TacForeSight [40]; TACO [41]; FeelWorld [42]; ContactWorld [43]
+This extends the original 25-paper progression to include FeelWorld and ContactWorld, which were subsequently
+discussed in the October follow-up. The original sequence also included D’Manus and an emerging haptic
+foundation-model perspective as adjacent follow-up reading.
+
+## PDF page 21
+TACTILE WORLD MODELS  /  COMPLETE RESEARCH REPORT
+23 OCT 2026  |  RESEARCH SYNTHESIS 21
+High-value review papers
+Start from the historical reviews Tactile Sensing for Dexterous In-Hand Manipulation [44] and Tactile Sensing in
+Dexterous Robot Hands [45], then the 2026 survey Vision-Based Tactile Intelligence for Robotics [46] and the 2026
+perspective on Haptic Foundation Models [47]. Add the 2025 humanoid e-skin reviews [33] [34] for whole-body sensing.
+17. Annotated bibliography and direct links
+This catalog captures the research papers, project pages, key simulators and surveys mentioned across our discussion, grouped
+by topic. Links lead to primary papers, publishers, authors’ project pages or technical documentation where available. Project
+pages and documentation are clearly distinguished from peer-reviewed papers. Preprints and publication status can change;
+always check the linked source for its latest version.
+Sensors / GelSight
+[1] GelSight: High-Resolution Robot Tactile Sensors for Estimating Geometry and Force (2017) — Foundational high-resolution optical
+sensing of local geometry and force. Open source ↗
+[2] Improved GelSight Tactile Sensor for Measuring Geometry and Slip (2017) — Gel deformation and slip sensing in a vision-based
+tactile interface. Open source ↗
+Manipulation / tactile learning
+[3] The Feeling of Success: Does Touch Sensing Help Predict Grasp Outcomes? (2017) — Tactile sensing for predicting grasp outcomes.
+Open source ↗
+Tactile simulation
+[4] TACTO: A Fast, Flexible, and Open-Source Simulator for High-Resolution Vision-Based Tactile Sensors (2020/2021) —
+Sensor-oriented synthetic visuotactile observations. Open source ↗
+[5] Generation of GelSight Tactile Images for Sim2Real Learning (2021) — GelSight-style image generation in simulation. Open source
+↗
+[6] Taxim: An Example-Based Simulation Model for GelSight Tactile Sensors (2022) — Data-calibrated optical rendering, elastomer
+deformation and marker motion. Open source ↗
+[7] Tactile Gym 2.0 (2022) — Sim-to-real robot learning with multiple optical tactile sensor designs. Open source ↗
+[8] TacSL: A Library for Visuotactile Sensor Simulation and Learning (2025) — Accelerated visuotactile simulation and learning
+infrastructure. Open source ↗
+Contact mechanics / tactile simulation
+[9] HydroelasticTouch (2025) — Hydroelastic pressure-distribution-based tactile modeling. Open source ↗
+Physics engines / contact
+[10] Drake: Compliant / Hydroelastic Contact Modeling Documentation (ongoing) — Distributed contact surface rather than only
+isolated point contact. Open source ↗
+Soft-contact / FEM
+[11] High-Fidelity Marker-Level 3D Deformation Simulation of Visuotactile Sensors (2026) — Physics-rich elastomer and marker
+displacement simulation. Open source ↗
+Physics engines
+[12] MuJoCo: A Physics Engine for Model-Based Control (2012) — Fundamental rigid-body and contact simulator for control. Open
+source ↗
+
+## PDF page 22
+TACTILE WORLD MODELS  /  COMPLETE RESEARCH REPORT
+23 OCT 2026  |  RESEARCH SYNTHESIS 22
+Differentiable physics
+[13] ChainQueen: A Real-Time Differentiable Physical Simulator for Soft Robotics (2019) — Differentiable material-point simulation for
+soft-body modeling and optimization. Open source ↗
+[14] DiffTaichi: Differentiable Programming for Physical Simulation (2020) — Framework for differentiating through physics simulation.
+Open source ↗
+[15] PlasticineLab: A Soft-Body Manipulation Benchmark with Differentiable Physics (2021) — Soft body manipulation and
+differentiable physics benchmark. Open source ↗
+[16] Dojo: A Differentiable Physics Engine for Robotics (2022) — Contact/friction-aware differentiable robot dynamics and system
+identification. Open source ↗
+Contact mechanics
+[17] Incremental Potential Contact (IPC) (2020) — Stable simulation of contact for deformable geometry. Open source ↗
+Multisensory objects
+[18] ObjectFolder: A Dataset of Objects with Implicit Visual, Auditory, and Tactile Representations (2021/2022) — Implicit multisensory
+object assets for tactile, audio and vision queries. Open source ↗
+[19] ObjectFolder 2.0: A Multisensory Object Dataset for Sim2Real Transfer (2022) — 1,000 virtual objects with visual, auditory and
+tactile representations. Open source ↗
+Texture perception
+[20] A Robotic Sensory System with High Spatiotemporal Resolution for Texture Recognition (2023) — Combines spatial pressure and
+dynamic high-frequency texture cues. Open source ↗
+Texture and materials
+[21] Material Recognition Using Tactile Sensing (2018) — Tactile vibration and thermal cues for classifying materials. Open source ↗
+[22] Multimodal Material Identification through Recursive Tactile Sensing (2018) — Material identification using multiple tactile sensing
+modalities. Open source ↗
+[23] Human-Touch-Inspired Material Recognition for Robotic Tactile Sensing (2019) — Tactile processing informed by human
+mechanoreception. Open source ↗
+[24] A Flexible Triboelectric Tactile Sensor for Simultaneous Material and Texture Recognition (2021) — Macro/micro texture
+information from triboelectric tactile measurement. Open source ↗
+[25] Multimodal Zero-Shot Learning for Tactile Texture Recognition (2024) — Cross-modal recognition of unseen texture categories.
+Open source ↗
+Vision / touch fusion
+[26] Connecting Touch and Vision via Cross-Modal Prediction (2019) — Bidirectional learning from visual and tactile signals. Open
+source ↗
+Tactile representation learning
+[27] Sparsh: Self-Supervised Touch Representations for Vision-Based Tactile Sensing (2024/2025) — Pretrained optical tactile
+representations across multiple datasets and sensors. Open source ↗
+[28] AnyTouch: Learning Unified Static-Dynamic Representation across Multiple Visuo-Tactile Sensors (2025) — Towards
+sensor-agnostic tactile features across devices. Open source ↗
+[29] AnyTouch 2 (2026) — Dynamic, force-aware cross-sensor tactile representations. Open source ↗
+
+## PDF page 23
+TACTILE WORLD MODELS  /  COMPLETE RESEARCH REPORT
+23 OCT 2026  |  RESEARCH SYNTHESIS 23
+Whole-body tactile skin
+[30] Realizing Whole-Body Tactile Interactions with a Self-Organizing, Multi-Modal Artificial Skin on a Humanoid Robot (2015) —
+Modular multimodal robot skin and body-level contact behavior. Open source ↗
+[31] Real-Time Control of a Humanoid Robot for Whole-Body Tactile Interaction (2025) — Multiple skin modalities integrated into
+whole-body robot control. Open source ↗
+[32] RobotSweater: Scalable, Generalizable, and Customizable Machine-Knitted Tactile Skins for Robots (2023) — Low-cost scalable
+knitted pressure-sensitive skin. Open source ↗
+Whole-body tactile skin / review
+[33] Humanoid Electronic-Skin Technology for the Era of Artificial Intelligence of Things (2025) — Review of e-skin, multimodal sensing
+and humanoid integration. Open source ↗
+[34] Systematic Review of Human-Inspired Electronic Skin Systems (2025) — Review highlighting heterogeneous capabilities of many
+human-inspired skins. Open source ↗
+Replaceable tactile skin
+[35] ReSkin: Versatile, Replaceable, Lasting Tactile Skins (2022) — Magnetic tactile sensing designed for replaceable sensor skins.
+Open source ↗
+[36] AnySkin: Plug-and-Play Skin Sensing for Robotic Touch (2024/2025) — Practical replaceable tactile sensing and cross-instance
+robustness. Open source ↗
+Dexterous skin
+[37] D'Manus: A Robot Hand with Tactile Sensing Across Fingers and Palm (2024/2025) — Distributed magnetic sensing on a dexterous
+hand; simulation component. Open source ↗
+Human demonstrations
+[38] Feel the Force: Human Demonstration with Tactile Gloves (2025/2026) — Human tactile/force measurements for learning
+force-aware robot behavior. Open source ↗
+Tactile world models
+[39] SPOTS: Multi-Modal World Model for Physical Robot Interactions (2026) — Simultaneously predicts visual and tactile robot-pushing
+outcomes. Open source ↗
+[40] TacForeSight: Force-Guided Tactile World Model for Contact-Rich Manipulation (2026) — Force-conditioned tactile latent prediction
+for manipulation policies. Open source ↗
+[41] TACO: TActile World Model as a Self-COrrector for Scalable Robot Policy Post-Training (2026) — Synthetic visuotactile corrections
+for policy improvement. Open source ↗
+[42] FeelWorld: Visuo-Tactile World Model for Hierarchical Contact Prediction and Planning (2026) — Joint visual, contact, tactile latent
+and slip prediction. Open source ↗
+[43] ContactWorld: What Matters in Vision-Tactile World Models for Contact-Rich Manipulation (2026) — Benchmark on structured
+representations and world-model planning. Open source ↗
+Review
+[44] Tactile Sensing for Dexterous In-Hand Manipulation in Robotics - A Review (2011) — Early broad overview of tactile sensing in
+manipulation. Open source ↗
+[45] Tactile Sensing in Dexterous Robot Hands - Review (2015) — Sensors, grasping, force/slip detection and robotic tactile control.
+Open source ↗
+[46] Vision-Based Tactile Intelligence for Robotics: Sensing, Learning, and Embodied Manipulation (2026) — Recent survey of
+visuotactile learning and systems. Open source ↗
+
+## PDF page 24
+TACTILE WORLD MODELS  /  COMPLETE RESEARCH REPORT
+23 OCT 2026  |  RESEARCH SYNTHESIS 24
+Concept / review
+[47] The Potential of Haptic Foundation Models (2026) — Perspective on general action-conditioned haptic representations. Open
+source ↗
+Simulation documentation
+[48] NVIDIA Isaac Sim Physics Fundamentals (ongoing) — Material friction, restitution and deformable simulation primitives. Open
+source ↗
+[49] NVIDIA Isaac Lab Visuo-Tactile Sensor Documentation (ongoing) — Simulation of tactile normal and shear fields for elastomer
+contact. Open source ↗
+[50] NVIDIA Isaac Sim Hydroelastic Contact Documentation (ongoing) — Distributed contact patches and hydroelastic contact model.
+Open source ↗
+18. Compact technical glossary and assumptions
+SDF. Signed distance field: a representation of shape and proximity to a surface.
+Taxel. A tactile sensing element, analogous to a pixel but measuring contact-related quantities.
+Normal force / pressure. Force perpendicular to the surface; pressure expresses force per area.
+Shear traction. Tangential force per area across a contact patch; essential for slip and friction.
+Incipient slip. Partial local slipping before an object undergoes macroscopic sliding.
+Compliance. Degree of deformation under applied load; depends on geometry and material.
+Viscoelasticity. Time/rate-dependent mechanical response that mixes elastic and dissipative behavior.
+Hydroelastic contact. Contact representation with spatially distributed contact surface/pressure.
+FEM. Finite-element method for approximating continuum deformation and stress.
+MPM. Material point method for simulating deformable bodies with particle/grid representations.
+Inverse physics / system identification. Inferring material or model parameters from observed interactions.
+Latent tactile state. Learned compressed representation of tactile measurements.
+Sim-to-real. Testing whether a policy/model trained or calibrated in simulation works on physical hardware.
+Provenance. Record of where measurements came from, including sensor IDs, calibration and specimen information.
+Important assumptions: Equations and asset schemas in this report are conceptual, not an established universal tactile standard.
+The label “somatosensory world model” expresses the long-term research goal. The idea that a hybrid physics-based model
+improves transfer is a proposed experimental hypothesis. Individual published metrics are quoted only within their original
+experimental scopes. An absence of a fully integrated system in the reviewed works does not prove that no undiscovered project
+exists.
+Final perspective. The opportunity is to connect three presently separated advances:
+physics-based contact, real measured tactile material properties, and learned future
+tactile prediction. A usable first milestone is a verified material/contact benchmark.
+Full-body synthetic touch should be treated as the ultimate systems challenge, pursued
+once transfer across actions and sensors is credible.

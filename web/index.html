@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Tactile World: a research-grounded workspace for preparing a YC application, benchtop proof of concept, and founder interview.">
+  <meta name="color-scheme" content="light">
+  <title>Tactile World — YC preparation</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="knowledge.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="workspace">
+    <header class="topbar">
+      <a class="brand" href="#overview" aria-label="Tactile World home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>Tactile World<small>FOUNDER WORKBOOK</small></span></a>
+      <div class="top-actions"><span class="edition">RESEARCH SNAPSHOT · 26 OCT 2026</span><button class="button subtle" id="print-button" type="button">Print slides</button><button class="button dark" id="present-button" type="button"><span aria-hidden="true">▷</span> Present</button></div>
+    </header>
+    <div class="layout">
+      <aside class="sidebar">
+        <p class="eyebrow">PREPARE WITH EVIDENCE</p>
+        <nav id="navigation" aria-label="Workbook sections">
+          <a href="#overview" data-view="overview"><span>01</span> Overview</a>
+          <a href="#industry" data-view="industry"><span>02</span> Industry map</a>
+          <a href="#build" data-view="build"><span>03</span> Build plan</a>
+          <a href="#application" data-view="application"><span>04</span> Application</a>
+          <a href="#rehearsal" data-view="rehearsal"><span>05</span> Rehearsal</a>
+          <a href="#sources" data-view="sources"><span>06</span> Sources & reading</a>
+        </nav>
+        <div class="sidebar-progress"><div><span>Personal checklist</span><strong id="progress-count">0 / 20</strong></div><progress id="progress-bar" max="20" value="0" aria-label="Personal checklist completion"></progress><p>Browser-local tracking.<br>Completion is not technical evidence.</p></div>
+        <a class="repo-link" href="../README.md">↗ Repository guide</a>
+        <p class="sidebar-note">An internal preparation workspace.<br>Product claims remain unvalidated unless an artifact supports them.</p>
+      </aside>
+      <main id="main" tabindex="-1">
+        <div class="notice" id="storage-notice" role="status" hidden></div>
+        <section class="view" id="view-overview" aria-labelledby="overview-title">
+          <div class="page-kicker"><span class="status-dot"></span> FROM RESEARCH TO REPEATABLE PROOF</div>
+          <div class="hero">
+            <div><h1 id="overview-title">Make touch<br><em>testable.</em></h1><p class="lede">Prepare a clear YC story around a measured tactile simulation prototype, useful synthetic data, and a specific customer problem.</p><div class="hero-actions"><a class="button orange" href="#build">Start with the build plan <span aria-hidden="true">→</span></a><a class="text-link" href="../docs/industry-landscape.md">Read the industry brief ↗</a></div></div>
+            <figure class="contact-figure"><div class="figure-grid"><span class="object-profile"></span><div class="gel"><span></span><span></span><span></span><span></span><span></span></div><div class="force-arrow" aria-hidden="true">↓</div><span class="figure-label top">OBJECT / CONTACT / SENSOR</span><span class="figure-label bottom">NORMAL CONTACT → DEFORMATION → IMAGE</span></div><figcaption>Conceptual contact schematic · not a simulation or measurement</figcaption></figure>
+          </div>
+          <div class="fact-strip"><div><span class="eyebrow">HARDWARE AVAILABLE</span><strong>Tactile sensor</strong><small>User-confirmed · type TBD</small></div><div><span class="eyebrow">HARDWARE GAP</span><strong>No robot</strong><small>Begin with a benchtop rig</small></div><div><span class="eyebrow">NEAR-TERM PROOF</span><strong>Measured contact</strong><small>Accuracy + speed + useful data</small></div></div>
+          <div class="section-heading"><h2>Three questions the prototype must answer</h2><span>THE BUILDING THESIS</span></div>
+          <div class="card-grid three"><article class="card"><span class="card-number">01 / PHYSICS</span><h3>Does it predict real contact?</h3><p>Replay measured motion. Compare force, contact geometry, and sensor output on reserved objects and trajectories.</p><span class="pill hypothesis">Hypothesis to test</span></article><article class="card"><span class="card-number">02 / COMPUTE</span><h3>Is it practical to run?</h3><p>Report full-step latency and throughput with GPU, resolution, batch size, and memory. Compare matched baselines.</p><span class="pill planned">Benchmark needed</span></article><article class="card"><span class="card-number">03 / UTILITY</span><h3>Does synthetic data help?</h3><p>Train a force estimator in simulation; freeze it and evaluate it on real sensor recordings with independent ground truth.</p><span class="pill planned">Transfer experiment planned</span></article></div>
+          <div class="split-section"><article class="panel"><p class="eyebrow">WHAT EXISTS</p><h2>A research foothold, with clear limits.</h2><p>Prior repositories document an offline vibration-spectrum predictor and a synthetic force-analysis pipeline. Their saved software checks do not establish physical force accuracy, an optical renderer, physical rollouts, or robot control.</p><p class="muted">Historical result reports are attributed evidence. They have not been rerun by this preparation repository.</p><a class="text-link" href="../docs/current-state.md">Inspect current evidence ↗</a></article><article class="panel tint"><p class="eyebrow">NEXT DECISIONS</p><h2>Resolve these before broadening scope.</h2><ol class="compact-list"><li>Identify the sensor, calibration access, and observable signals.</li><li>Choose a customer workflow and measurable advantage.</li><li>Build a repeatable normal-contact experiment.</li><li>Freeze calibration and evaluation boundaries.</li></ol><a class="text-link" href="../docs/poc-build-plan.md">Open the experiment plan ↗</a></article></div>
+          <div class="callout"><strong>A credible application can be early.</strong><p>Show the actual stage, the last concrete progress, what you learned, and the next experiment. A robot, 500 FPS, and zero-shot RL are not universal YC entry requirements.</p><a href="https://www.ycombinator.com/faq" target="_blank" rel="noreferrer">YC FAQ ↗</a></div>
+        </section>
+
+        <section class="view" id="view-industry" aria-labelledby="industry-title" hidden>
+          <p class="page-kicker">02 / INDUSTRY MAP</p><h1 id="industry-title">Know which layer<br>you are improving.</h1><p class="lede narrow">A sensor renderer, contact solver, tactile encoder, and world model solve different problems. Position the initial product precisely.</p>
+          <div class="stack-grid"><article><span>01</span><h3>Physical state</h3><p>Geometry, materials, deformation, pressure, shear, slip, and history.</p></article><article><span>02</span><h3>Contact dynamics</h3><p>Actions and contact laws produce force and evolving physical state.</p></article><article><span>03</span><h3>Sensor response</h3><p>Contact state produces optical frames, marker motion, or vibration.</p></article><article><span>04</span><h3>Learning & control</h3><p>Inference and prediction support probing, policies, and planning.</p></article></div>
+          <div class="section-heading"><h2>Relevant prior art</h2><a class="text-link" href="../docs/industry-landscape.md">Full sourced landscape ↗</a></div>
+          <div class="table-wrap"><table><caption class="sr-only">Selected research systems and implications for Tactile World</caption><thead><tr><th>System</th><th>Established direction</th><th>Question for our differentiation</th></tr></thead><tbody>
+            <tr><td><a href="https://arxiv.org/abs/2012.08456" target="_blank" rel="noreferrer">TACTO ↗</a><small>Optical simulation</small></td><td>Configurable optical tactile rendering; reports hundreds of frames per second.</td><td>What measured accuracy or workflow advantage do we add?</td></tr>
+            <tr><td><a href="https://arxiv.org/abs/2109.04027" target="_blank" rel="noreferrer">Taxim ↗</a><small>Calibrated sensor response</small></td><td>Example-based GelSight optics and elastic marker-motion modeling.</td><td>Can we improve held-out contact behavior or calibration effort?</td></tr>
+            <tr><td><a href="https://arxiv.org/abs/2408.06506" target="_blank" rel="noreferrer">TacSL ↗</a><small>GPU simulation + learning</small></td><td>GPU visuotactile simulation and learning with sim-to-real demonstrations.</td><td>How do our fidelity and training utility compare at matched compute?</td></tr>
+            <tr><td><a href="https://arxiv.org/abs/2403.08716" target="_blank" rel="noreferrer">DiffTactile ↗</a><small>Contact mechanics</small></td><td>Differentiable elastomer and object/contact modeling.</td><td>Which physical regime can we model more practically?</td></tr>
+            <tr><td><a href="https://arxiv.org/abs/2603.00446" target="_blank" rel="noreferrer">HydroShear ↗</a><small>Shear + transfer</small></td><td>Path-dependent shear and stick-slip; reports tactile policy transfer.</td><td>What benchmark distinguishes our contact model from this work?</td></tr>
+            <tr><td>Learned world models<small>Report reading track</small></td><td>Action-conditioned tactile or visuotactile prediction is an active research direction.</td><td>Does our model predict useful physical outcomes on unseen contacts?</td></tr>
+          </tbody></table></div>
+          <div class="section-heading"><h2>The broader research & ecosystem catalog</h2><span>CANONICAL SOURCE DATA</span></div>
+          <div class="catalog-controls"><label for="industry-search">Find a system or research direction<input id="industry-search" type="search" placeholder="Search sensor, shear, world model…"></label><label for="industry-category">Category<select id="industry-category"><option value="all">All categories</option></select></label></div>
+          <p id="industry-count" class="muted" role="status"></p><div id="industry-catalog" class="industry-catalog"></div>
+          <div class="card-grid three"><article class="card"><span class="pill hypothesis">Commercial hypothesis</span><h3>First wedge</h3><p>A calibrated, repeatable tactile data and evaluation workflow for teams that already operate optical tactile sensors.</p></article><article class="card"><span class="pill hypothesis">Research hypothesis</span><h3>Longer-term advantage</h3><p>Measured material/contact assets plus a physical model and learned residual may improve transfer across motions and loads.</p></article><article class="card"><span class="pill planned">Long-term scope</span><h3>Whole-body touch</h3><p>Cross-sensor representations, distributed skin, texture vibration, and thermal response remain separate integration challenges.</p></article></div>
+          <div class="callout"><strong>Platform threat is also an integration question.</strong><p>MuJoCo, Isaac, Drake, and other engines may be backends, substitutes, or distribution surfaces. The defensible claim must come from customer value and evidence, not “they cannot build touch.”</p><a href="../docs/technical-architecture.md">Architecture and boundaries ↗</a></div>
+        </section>
+
+        <section class="view" id="view-build" aria-labelledby="build-title" hidden>
+          <p class="page-kicker">03 / BUILD PLAN</p><h1 id="build-title">One sensor.<br>One repeatable proof.</h1><p class="lede narrow">Build in dependency order. Normal contact comes first; shear and closed-loop control follow the claims you actually need to support.</p>
+          <div class="tracking-bar"><div><strong>Personal tracking only</strong><p>Checking a task records your browser-local progress. It does not verify a result or change a claim’s evidence status.</p></div><div class="tracking-actions"><button class="button subtle" id="export-progress" type="button">Export checklist</button><button class="button subtle" id="import-progress" type="button">Import</button><button class="button subtle danger" id="reset-progress" type="button">Reset</button><input type="file" id="import-file" accept="application/json,.json" hidden></div></div><p class="form-message" id="import-message" role="status"></p>
+          <div id="build-gates" class="gate-list"></div>
+          <div class="split-section"><article class="panel tint"><p class="eyebrow">MINIMUM CREDIBLE DEMO</p><h2>Measured motion → simulated contact.</h2><p>Complete the rig, recording, model, held-out comparison, benchmark, and runnable API. Present this as a calibrated simulation prototype. Add synthetic-to-real perception for a stronger utility result.</p></article><article class="panel"><p class="eyebrow">STRETCH MILESTONE</p><h2>Feedback before dexterity.</h2><p>A one-axis motorized stage can maintain force from tactile estimates. A frozen estimator with a conventional controller demonstrates perception transfer and control, not automatically sim-trained policy transfer.</p></article></div>
+          <a class="button dark" href="../docs/poc-build-plan.md">Read the complete PoC specification ↗</a>
+        </section>
+
+        <section class="view" id="view-application" aria-labelledby="application-title" hidden>
+          <p class="page-kicker">04 / APPLICATION</p><h1 id="application-title">A clear claim.<br>A visible artifact.</h1><p class="lede narrow">Keep every sentence tied to the user, your individual contribution, an inspectable result, or an explicit hypothesis.</p>
+          <article class="positioning-card"><span class="pill hypothesis">Proposed positioning · validate with users</span><blockquote>“We build software that simulates tactile sensor readings so robotics teams can train and evaluate models before collecting more hardware data.”</blockquote><p>This describes the proposed product. It is not a statement that the full product has shipped.</p></article>
+          <div class="card-grid two"><article class="card"><p class="eyebrow">ANSWER WITH FACTS</p><h3>How far along are you?</h3><p>Available: a tactile sensor. Prior work: offline vibration-spectrum development and synthetic force-analysis software. New rig, renderer, physical validation, customers, and revenue: <strong>TBD / not established here.</strong></p><a class="text-link" href="../docs/evidence-ledger.md">Evidence ledger ↗</a></article><article class="card"><p class="eyebrow">STATE THE MISSING DETAILS</p><h3>Founder facts to supply</h3><p>Names, roles, history together, individual contributions, time commitment, equity, incorporation, burn, runway, customer conversations, pricing, and actual revenue.</p><a class="text-link" href="../docs/yc-application.md">Application worksheet ↗</a></article></div>
+          <div class="section-heading"><h2>Before submitting</h2><span>LINK THE EVIDENCE</span></div><div id="application-checklist" class="application-checklist"></div>
+          <div class="split-section"><article class="panel"><p class="eyebrow">FOUNDER VIDEO</p><h2>One minute of founders talking.</h2><p>Introduce yourselves, explain what you are doing and why, and follow YC’s founder-video instructions. Use bullet points instead of reciting a script.</p><a class="text-link" href="https://www.ycombinator.com/video" target="_blank" rel="noreferrer">Official instructions ↗</a></article><article class="panel tint"><p class="eyebrow">PRODUCT DEMO</p><h2>Show the working prototype.</h2><p>Prepare a concise walkthrough of measured contact, the comparison, useful model transfer if completed, and the actual code. Follow the live application’s demo field limits.</p><a class="text-link" href="../docs/demo-storyboard.md">Recording storyboard ↗</a></article></div>
+          <div class="callout"><strong>Preparation heuristics are not admissions rules.</strong><p>No official rule says the CEO must answer 70% of questions, that every founder split must be equal, or that an early company must demonstrate zero-shot RL. Give accurate facts and let founders answer in their areas of expertise.</p><a href="../docs/yc-guidance-audit.md">Audit the supplied YC advice ↗</a></div>
+          <div class="inline-links"><a href="../docs/customer-discovery.md">Customer discovery ↗</a><a href="../docs/business-model.md">Business model & market assumptions ↗</a><a href="../docs/yc-application.md">Full application worksheet ↗</a></div>
+        </section>
+
+        <section class="view" id="view-rehearsal" aria-labelledby="rehearsal-title" hidden>
+          <p class="page-kicker">05 / REHEARSAL</p><h1 id="rehearsal-title">Practice the facts.<br>Keep the conversation.</h1><p class="lede narrow">Use short answers, then follow the question. These prompts are a practice bank, not a prediction of an interview script.</p>
+          <div class="rehearsal-layout"><div><div class="question-controls"><label for="question-category">Question category</label><select id="question-category"><option value="all">All categories</option></select><span id="question-count"></span></div><article class="question-card" aria-live="polite"><span class="eyebrow" id="question-tag"></span><h2 id="question-prompt"></h2><div id="answer-guidance" hidden><h3>Answer frame</h3><p id="question-frame"></p><h3>Have this evidence ready</h3><p id="question-evidence"></p><h3>Likely follow-up</h3><p id="question-followup"></p></div><button class="button orange" type="button" id="reveal-answer" aria-expanded="false" aria-controls="answer-guidance">Reveal preparation prompts</button></article><div class="question-footer"><button class="button subtle" type="button" id="random-question">Random question</button><button class="button dark" type="button" id="next-question">Next question →</button></div></div><aside class="timer-panel"><p class="eyebrow">MOCK INTERVIEW</p><div id="timer-display" class="timer" role="timer" aria-label="Ten minutes remaining">10:00</div><p>10 minutes. Answer directly.<br>Let the question set the pace.</p><div class="timer-actions"><button class="button dark" id="timer-toggle" type="button">Start timer</button><button class="button subtle" id="timer-reset" type="button">Reset</button></div><p class="timer-note">No audio, microphone, or recording.<br>The timer is a practice tool.</p><a class="text-link" href="../docs/interview-playbook.md">Interview playbook ↗</a></aside></div>
+        </section>
+
+        <section class="view" id="view-sources" aria-labelledby="sources-title" hidden>
+          <p class="page-kicker">06 / SOURCES & READING</p><h1 id="sources-title">Keep the trail<br>back to evidence.</h1><p class="lede narrow">The supplied report and earlier research are preserved as source material. Current interpretation and fresh primary-source checks live in the Markdown documents.</p>
+          <div class="source-conventions"><span class="pill confirmed">User-confirmed</span><span class="pill documented">Documented prior result</span><span class="pill hypothesis">Hypothesis</span><span class="pill planned">Planned / TBD</span></div>
+          <div id="source-list" class="source-list"></div>
+          <div class="section-heading"><h2>Working documents</h2><span>CANONICAL DETAIL</span></div><div class="document-grid"><a href="../docs/industry-landscape.md"><strong>Industry landscape</strong><span>Competition, complements, and research scope ↗</span></a><a href="../docs/technical-architecture.md"><strong>Technical architecture</strong><span>Material, contact, sensor, and learning interfaces ↗</span></a><a href="../docs/report-crosswalk.md"><strong>Report crosswalk</strong><span>Where the supplied report enters this repository ↗</span></a><a href="../docs/poc-build-plan.md"><strong>PoC build plan</strong><span>Dependencies, measurements, and acceptance gates ↗</span></a><a href="../docs/current-state.md"><strong>Current state</strong><span>What exists and what remains unproven ↗</span></a><a href="../docs/yc-application.md"><strong>Application worksheet</strong><span>Questions, answer frames, and missing founder facts ↗</span></a><a href="../docs/customer-discovery.md"><strong>Customer discovery</strong><span>Workflow interviews and pilot evidence ↗</span></a><a href="../sources/prior-research/docs/paper_dictionary.md"><strong>99-paper archive</strong><span>Preserved prior literature map with dated review scope ↗</span></a><a href="../docs/yc-guidance-audit.md"><strong>YC guidance audit</strong><span>Official instructions versus suggested tactics ↗</span></a><a href="../docs/evidence-ledger.md"><strong>Evidence ledger</strong><span>Claim status, source, and next experiment ↗</span></a></div>
+          <p class="muted">Coverage is a dated research snapshot, not an exhaustive market census. Report references without fresh primary-source checks must retain that status in the research documents.</p>
+        </section>
+        <footer class="page-footer"><span>TACTILE WORLD / INTERNAL PREPARATION</span><span>Evidence before claims. · Snapshot: 26 October 2026</span></footer>
+      </main>
+    </div>
+  </div>
+  <section id="presentation" aria-label="Tactile World presentation" hidden>
+    <header class="presentation-toolbar"><span class="brand-mini">TACTILE WORLD / PREPARATION BRIEF</span><div><button class="button subtle" id="slide-toc-toggle" type="button" aria-expanded="false" aria-controls="slide-toc">Slide index</button><button class="button subtle" id="exit-presentation" type="button">Exit <kbd>Esc</kbd></button></div></header>
+    <nav id="slide-toc" aria-label="Presentation slide index" hidden></nav>
+    <div id="slides"></div>
+    <footer class="presentation-footer"><span id="slide-section"></span><div><button id="previous-slide" type="button" aria-label="Previous slide">←</button><span id="slide-counter" aria-live="polite"></span><button id="next-slide" type="button" aria-label="Next slide">→</button></div><span class="keyboard-hint">← → navigate · Esc exit</span></footer>
+  </section>
+  <dialog id="confirm-dialog" aria-labelledby="confirm-title" aria-describedby="confirm-message">
+    <p class="eyebrow">PERSONAL CHECKLIST</p>
+    <h2 id="confirm-title">Confirm checklist change</h2>
+    <p id="confirm-message"></p>
+    <form method="dialog" class="confirm-actions">
+      <button class="button subtle" value="cancel" autofocus>Cancel</button>
+      <button class="button orange" id="confirm-action" value="confirm">Confirm</button>
+    </form>
+  </dialog>
+  <div class="sr-only" id="announcement" role="status" aria-live="polite"></div>
+</body>
+</html>

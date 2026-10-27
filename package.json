@@ -1,0 +1,13 @@
+{
+  "name": "tactile-world",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Research and evidence workspace for a tactile simulation YC application",
+  "type": "module",
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "check": "node scripts/check.mjs",
+    "sync": "node scripts/sync-data.mjs"
+  },
+  "engines": { "node": ">=18" }
+}
