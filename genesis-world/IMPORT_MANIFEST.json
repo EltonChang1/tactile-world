@@ -2,7 +2,7 @@
   "source_url": "https://github.com/Genesis-Embodied-AI/genesis-world",
   "source_branch": "main",
   "source_commit": "5fe84823e1e919e99dbd9b6bb56a28df14c3e6b1",
-  "local_additions": "examples/sensors/franka_contact_video/",
+  "local_additions": null,
   "excluded": [
     ".git/",
     "ignored virtual environments, caches, build metadata and generated outputs"
@@ -657,66 +657,6 @@
       "path": "examples/sensors/depth_camera_custom_vverts.py",
       "bytes": 7621,
       "sha256": "19d69346661c832fe26466bda374556b9d3c6d0bf531f3ccba5a4bfe5871e363"
-    },
-    {
-      "path": "examples/sensors/franka_contact_video/OBJECT_SANDBOX.md",
-      "bytes": 4721,
-      "sha256": "c73c80353416ce45255d827e6faa0b06cb6eab796144a602eeaf584828b9bc5a"
-    },
-    {
-      "path": "examples/sensors/franka_contact_video/README.md",
-      "bytes": 7757,
-      "sha256": "5118fb17021dd53991d2038d6ecc814c262ef313d4bef5ed4f06498fba734a1b"
-    },
-    {
-      "path": "examples/sensors/franka_contact_video/__init__.py",
-      "bytes": 82,
-      "sha256": "2ecd496ecd3dafc2f3fcb898b0e0aab83e320f90f005d283aac577ed25fdb78c"
-    },
-    {
-      "path": "examples/sensors/franka_contact_video/__main__.py",
-      "bytes": 7727,
-      "sha256": "173d13ec7cd66f1e0ea1113a0c5382c423487ff41b31194be17b918c6e406b9b"
-    },
-    {
-      "path": "examples/sensors/franka_contact_video/controls.py",
-      "bytes": 2083,
-      "sha256": "f83dc761b0d1c1d6b8a5d249eb80454465bf604d133dfa341553f3f207c9325b"
-    },
-    {
-      "path": "examples/sensors/franka_contact_video/dashboard.py",
-      "bytes": 5103,
-      "sha256": "c20dcca745376b7e7ad29051f41d7b68e12d7bcfa03057bf9ee04e307ae53f3f"
-    },
-    {
-      "path": "examples/sensors/franka_contact_video/field.py",
-      "bytes": 1996,
-      "sha256": "4a8c23f947f4ffed7a6392ebba18883a67764fa3bd846ed8a6dffa87d7cb7d29"
-    },
-    {
-      "path": "examples/sensors/franka_contact_video/object_dashboard.py",
-      "bytes": 1920,
-      "sha256": "1f2d5ff8ecd51024c744f9a75a2e6d5209b665e150794d722923c363a8a078a9"
-    },
-    {
-      "path": "examples/sensors/franka_contact_video/object_sandbox.py",
-      "bytes": 8854,
-      "sha256": "440c8f2bdb2861e29b56f272b2f8c0b1df23ebb15e25f2d6388f955d470469ea"
-    },
-    {
-      "path": "examples/sensors/franka_contact_video/object_skin.py",
-      "bytes": 2910,
-      "sha256": "4e60a5fb6c4ffc01f3aa6d6fed8c7c123bf2b4db178b3fc452e89179d1921134"
-    },
-    {
-      "path": "examples/sensors/franka_contact_video/scene.py",
-      "bytes": 3968,
-      "sha256": "7ceecd92a6c0abd703fe6312b721e967ebda49143a352632503a003de5d375f7"
-    },
-    {
-      "path": "examples/sensors/franka_contact_video/test_math.py",
-      "bytes": 2584,
-      "sha256": "0aa8d6b7bff565dbbc9a4ab48265d077eeb2cc5f0a66aaa7db542b53fa700c4d"
     },
     {
       "path": "examples/sensors/imu_franka.py",
