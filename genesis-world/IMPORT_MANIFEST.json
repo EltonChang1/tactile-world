@@ -835,13 +835,13 @@
     },
     {
       "path": "genesis/assets/meshes/Airplane/airplane.mtl",
-      "bytes": 423,
-      "sha256": "c291f143fba93c8a01206390106b58720fffe710fb61f4753661eda1f2324108"
+      "bytes": 405,
+      "sha256": "5839f47eba648adedaec9bd04942e768967e49a4d0ae2174bb2a72666cec6cb3"
     },
     {
       "path": "genesis/assets/meshes/Airplane/airplane.obj",
-      "bytes": 101728,
-      "sha256": "43e0726eb7d86409929bf8fe53749a9216e85104938b6058c302f8a42ad4de89"
+      "bytes": 98349,
+      "sha256": "567fdc8220ea673e0c16e2de940813f0aa1c8252846b1fb40c281e3b7a631c01"
     },
     {
       "path": "genesis/assets/meshes/Airplane/textures/diffuse.dds",
@@ -1025,8 +1025,8 @@
     },
     {
       "path": "genesis/assets/meshes/duck.obj",
-      "bytes": 2312910,
-      "sha256": "b0df328abab9362dba4318669ca7f5137aec462fadeeb5e46c2588ab5ed68e82"
+      "bytes": 2248846,
+      "sha256": "e8caf9c3de1ddbcb8d0da5f5a1bb3d8f2097fe7f9d02d1424dac7289c77e232b"
     },
     {
       "path": "genesis/assets/meshes/duck/duck.obj",
@@ -1110,13 +1110,13 @@
     },
     {
       "path": "genesis/assets/meshes/wooden_sphere_OBJ/wooden_sphere.mtl",
-      "bytes": 492,
-      "sha256": "8549309d2c9ed705b40a43bc5a2a36dd2ce6ecd3dc5d8f86a04cbf64350ce586"
+      "bytes": 473,
+      "sha256": "21138b651d1b2361016233280f598179c18ef2e1f0a43231898be8338206a6dc"
     },
     {
       "path": "genesis/assets/meshes/wooden_sphere_OBJ/wooden_sphere.obj",
-      "bytes": 254281,
-      "sha256": "ba713fd5cfe81bf40fc6dfc9c25e007c44c2870cce81b66d4a2ed189f5cfed71"
+      "bytes": 248000,
+      "sha256": "4fa3f1f5880cf0b62eecf877085b4e9e540bd0e694f41b582316adabb537cc8c"
     },
     {
       "path": "genesis/assets/meshes/worm/bdy_Base_Color.png",
@@ -2885,13 +2885,13 @@
     },
     {
       "path": "genesis/assets/xml/franka_sim/README.md",
-      "bytes": 426,
-      "sha256": "f3d7fb904d94729050b3c95ad82b44dab6e97af73b531bb46ca5e382c296b38a"
+      "bytes": 414,
+      "sha256": "2b1b2f1fe039e049bbb88aeb8082c6b846abad112871cef1cb690cf6ee97f9de"
     },
     {
       "path": "genesis/assets/xml/franka_sim/assets/actuator0.xml",
-      "bytes": 2005,
-      "sha256": "22b486b30711965ab4fbcc9aa177f25be5ae1025627ab44e2b2695b8a3dfac2f"
+      "bytes": 1987,
+      "sha256": "acdb5554a37a16b09a9e467cb82385305c671aa696476767e2c506370b58970c"
     },
     {
       "path": "genesis/assets/xml/franka_sim/assets/actuator0_0.xml",
@@ -2905,13 +2905,13 @@
     },
     {
       "path": "genesis/assets/xml/franka_sim/assets/actuator1.xml",
-      "bytes": 2325,
-      "sha256": "fb94ccff31000a2f33c502a214cb1cc3374fe67e14b3187eee8c6fdf61fac825"
+      "bytes": 2306,
+      "sha256": "c3c43571d01fcbc7d72f86dad7b61302373c21165d7e88b9caed5195f5afe8ee"
     },
     {
       "path": "genesis/assets/xml/franka_sim/assets/assets.xml",
-      "bytes": 4995,
-      "sha256": "c49f7303140c89ac3fdd114977519248bdb47f8d8fb2c76d0aa68a1d360e2636"
+      "bytes": 4908,
+      "sha256": "cf7dcdcb14ec8c5f8e7751f1c590d4a8f6ae162a279919e04e7cca56f27c3efc"
     },
     {
       "path": "genesis/assets/xml/franka_sim/assets/assets_0.xml",
@@ -2925,13 +2925,13 @@
     },
     {
       "path": "genesis/assets/xml/franka_sim/assets/basic_scene.xml",
-      "bytes": 1600,
-      "sha256": "815d019d231a5c2d1bf6c4675a058bb77c306c16bbc6ca5f85d7eafd92cf1f0e"
+      "bytes": 1579,
+      "sha256": "2375014e492206d702160e9c755d58ac41ea412a983a93132a6c7f81741571ec"
     },
     {
       "path": "genesis/assets/xml/franka_sim/assets/chain0.xml",
-      "bytes": 10136,
-      "sha256": "756f5fea95b4643fefe2a4ae010fa7f6cd5772f5294c712a06d6038ea5b652c1"
+      "bytes": 10015,
+      "sha256": "212041f5a827381a8bda89d93a844c109fb26204b93ed26795abb6371f36500b"
     },
     {
       "path": "genesis/assets/xml/franka_sim/assets/chain0_nogripper.xml",
@@ -2940,13 +2940,13 @@
     },
     {
       "path": "genesis/assets/xml/franka_sim/assets/chain0_overlay.xml",
-      "bytes": 3721,
-      "sha256": "91ea9ffe486217e18fe459003f06384b867e9e75499e59824c20f948ff70ce5b"
+      "bytes": 3668,
+      "sha256": "1a491439a01353565b75dc221738a66278969162760522968d42cda3422984e1"
     },
     {
       "path": "genesis/assets/xml/franka_sim/assets/chain1.xml",
-      "bytes": 9651,
-      "sha256": "f46a95fb54a0a49ce97b1fe509ee11e86b164d7b53e24ebad69fbfa9c8ea6d0e"
+      "bytes": 9536,
+      "sha256": "569820dc031c70ae331003122eedb40c70312915f561dbac469617257072ba34"
     },
     {
       "path": "genesis/assets/xml/franka_sim/assets/gripper_actuator0.xml",
@@ -2960,8 +2960,8 @@
     },
     {
       "path": "genesis/assets/xml/franka_sim/assets/teleop_actuator.xml",
-      "bytes": 1230,
-      "sha256": "60f5ac06f58aca435f43e663f4292677da19e4180137faa2c89487502e00c351"
+      "bytes": 1216,
+      "sha256": "d55924c83978e48472c0d7016a2d4ae46cc8fd287cb851c2460d2c428ea2dc22"
     },
     {
       "path": "genesis/assets/xml/franka_sim/ball.xml",
@@ -2970,8 +2970,8 @@
     },
     {
       "path": "genesis/assets/xml/franka_sim/bi-franka_panda.xml",
-      "bytes": 2055,
-      "sha256": "f98e7836ca129267fcf890f4e27367d943b586ee9f426a08018a8285f4664b67"
+      "bytes": 2011,
+      "sha256": "96bf5c03b62d896bc25e297460a1ae134b85a1c739f2f552dd13e3d833b2c36f"
     },
     {
       "path": "genesis/assets/xml/franka_sim/bi_franka.png",
@@ -2985,8 +2985,8 @@
     },
     {
       "path": "genesis/assets/xml/franka_sim/franka_panda.xml",
-      "bytes": 10407,
-      "sha256": "045bcdb1c4be4c69680048821437ffa51690e5d57e216005cda78a17323943a2"
+      "bytes": 10275,
+      "sha256": "ece5055c04aad2284ace36c322e8714001d61a72f3e0245e768da2589680177d"
     },
     {
       "path": "genesis/assets/xml/franka_sim/franka_panda_0.xml",
@@ -3010,13 +3010,13 @@
     },
     {
       "path": "genesis/assets/xml/franka_sim/franka_panda_ball.xml",
-      "bytes": 11100,
-      "sha256": "269c8940896433eb6be3da66fceb1a7ddba270814c31c2c56741a79e27717cfe"
+      "bytes": 10954,
+      "sha256": "241e7df08906587566530c444bcc0047b545e56368e552e70c201e4435fb0962"
     },
     {
       "path": "genesis/assets/xml/franka_sim/franka_panda_ball_.xml",
-      "bytes": 11069,
-      "sha256": "78aa469e30a17d3fcb0d64b3e0828f98f7a47650e1c42fb8a0cf87400917ca7d"
+      "bytes": 10923,
+      "sha256": "2c873c9f5aadf72ba3490389aa92c783d5fdb191383938d68c5ec18c4c3f3ae3"
     },
     {
       "path": "genesis/assets/xml/franka_sim/franka_panda_no_finger.xml",
@@ -3025,13 +3025,13 @@
     },
     {
       "path": "genesis/assets/xml/franka_sim/franka_panda_teleop.xml",
-      "bytes": 1799,
-      "sha256": "3923d7e29f231ffda3c5d35933d881a051301c79884bd31b05800fd30c0fb6a1"
+      "bytes": 1762,
+      "sha256": "21d2097cd4a18d1b1c7a9f1f639228958df16a8b5617daa7c8b1e7263dc8fdfc"
     },
     {
       "path": "genesis/assets/xml/franka_sim/franka_panda_test_convex.xml",
-      "bytes": 10786,
-      "sha256": "96ff780adcab39bcaa65ec1a5976175f926f55cb3c63e686e0e5fe831111a5b5"
+      "bytes": 10649,
+      "sha256": "d3e05ee658c926fd596cdca36964b1c98d4a60fa918cb631728bf7aff9a7e236"
     },
     {
       "path": "genesis/assets/xml/franka_sim/meshes/collision/finger.stl",
@@ -4265,13 +4265,13 @@
     },
     {
       "path": "genesis/ext/pyrender/shaders/mesh_normal.frag",
-      "bytes": 204,
-      "sha256": "f08c1170d5573dbab6532ec90a42eae6795a9e6b38ded775487b1a06260f3cd7"
+      "bytes": 192,
+      "sha256": "82b8b9590d8e81fddc51406494f5bd2086a999088cbcb6c4031e8a4c31e4354f"
     },
     {
       "path": "genesis/ext/pyrender/shaders/mesh_normal.vert",
-      "bytes": 979,
-      "sha256": "24be70c4240fafdf5e6d6a9182c0b4edd9d2699885998409a2ed1587718ac721"
+      "bytes": 942,
+      "sha256": "a84525a7bfd5e18f93016673243252c70a2fb7f5e479b116b72541b70d92fe24"
     },
     {
       "path": "genesis/ext/pyrender/shaders/mesh_normal_double_sided.geom",
@@ -5303,5 +5303,6 @@
       "bytes": 7580,
       "sha256": "a350f3a20a0faa1cd7427a62c6cdc7f8cb12f79ed35581bf6fcf580a5a35c0ea"
     }
-  ]
+  ],
+  "line_endings": "Git normalized CRLF to LF for text files during import; checksums describe files in tactile-world."
 }
